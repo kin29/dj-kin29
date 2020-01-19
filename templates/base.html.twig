@@ -2,11 +2,45 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}⚡️💪DJ-Kin29🎧⚡{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        {% endblock %}
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-xxxxx');</script>
+        <!-- End Google Tag Manager -->
+        <meta property="og:title" content="DJ-Kin29" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://dj-kin29.herokuapp.com/" />
+        <meta property="og:image" content="https://kin29.info/wp-content/uploads/2019/11/dj-kin29.png" />
+        <meta property="og:site_name" content="DJ-Kin29" />
+        <meta property="og:description" content="Quick Create Spotify-PlayList By ArtistName" />
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content="@kin29ma_n" />
+        <meta property="twitter:title" content="DJ-Kin29" />
+        <meta property="twitter:url" content="https://dj-kin29.herokuapp.com/" />
+        <meta property="twitter:description" content="Quick Create Spotify-PlayList By ArtistName" />
+        <meta property="twitter:image" content="https://kin29.info/wp-content/uploads/2019/11/dj-kin29.png" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-xxxxxx"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        <header>
+            <nav class="navbar navbar-light bg-light">
+                <span class="navbar-brand mb-0 h1">⚡️💪DJ-Kin29🎧⚡️</span>
+            </nav>
+        </header>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
