@@ -34,7 +34,7 @@ class ArtistTopTrackGetter
         $this->session = new SpotifyWebAPI\Session(
             getenv('SPOTIFY_CLIENT_ID'),
             getenv('SPOTIFY_CLIENT_SECRET'),
-            getenv('REDIRECT_URI'). 'create'
+            getenv('SPOTIFY_REDIRECT_URI')/*. 'create'*/
         );
         $this->router = $router;
     }
