@@ -62,22 +62,19 @@ class AuthorizationHandler
             return $this->router->generate('auth_failure');
         }
 
-//        if (!isset($_GET['code'])) {
-//            $this->redirectAuth();
-//        }
+        if (!isset($_GET['code'])) {
+            $this->redirectAuth();
+        }
 
         $retTracks = [];
         $retArtists = [];
         foreach ($artistNames as $artistName) {
             $results = $this->api->search($artistName, $type, array('limit' => 1));
-            var_dump($results);
 
             if (count($results->artists->items) == 0) continue;
 
             $artistId = $results->artists->items[0]->id;
-            var_dump($artistId);
             $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-            var_dump($tracks);
             foreach ($tracks as $track) {
                 $retTracks[] = $track->id;
             }
