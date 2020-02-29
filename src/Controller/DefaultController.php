@@ -25,7 +25,7 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        $this->spotifyAuth->handleRequest();
+        //$this->spotifyAuth->handleRequest();
 
         $form = $this->createForm(ArtistNameListType::class, null, [
             'action' => $this->generateUrl('post'),
@@ -41,6 +41,8 @@ class DefaultController extends AbstractController
      */
     public function post()
     {
+        $this->spotifyAuth->handleRequest();
+
         return $this->render('default/post.html.twig', [
             'controller_name' => 'PostController',
         ]);
