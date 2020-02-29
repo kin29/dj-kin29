@@ -49,7 +49,7 @@ class AuthorizationHandler
         //print_r($this->api->me());
         //print_r($this->session->getAccessToken());
 
-        return $this->router->generate('create');
+        return $this->router->generate('create'). '?code=' . $_GET['code'];
     }
 
     /**
