@@ -66,7 +66,8 @@ class AuthorizationHandler
             $this->redirectAuth();
         }
 
-        var_dump($this->api->me());
+        $this->session->requestAccessToken($_GET['code']);
+        var_dump($this->session->getAccessToken());
         $retTracks = [];
         $retArtists = [];
 //        foreach ($artistNames as $artistName) {
