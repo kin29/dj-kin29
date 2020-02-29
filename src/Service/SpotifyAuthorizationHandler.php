@@ -20,13 +20,16 @@ class SpotifyAuthorizationHandler
 
     public function __construct(SpotifyWebAPI\SpotifyWebAPI $api, SpotifyWebAPI\Session $session)
     {
-        $this->api = $api;
-        $this->session = $session;
+        $this->api = new SpotifyWebAPI\SpotifyWebAPI();
+        $this->session = new SpotifyWebAPI\Session(
+            getenv('CLIENT_ID'),
+            getenv('CLIENT_SECRET'),
+            getenv('REDIRECT_URI')
+        );
     }
 
     public function handleRequest()
     {
-        var_dump($_GET);exit;
         if (isset($_GET['code'])) {
             $this->session->requestAccessToken($_GET['code']);
             $this->api->setAccessToken($this->session->getAccessToken());
