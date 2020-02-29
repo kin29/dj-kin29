@@ -48,7 +48,7 @@ class ArtistNameListType extends AbstractType
      * @param bool $isRequired
      * @return array
      */
-    public function generateArtistNames(string $placeHolder, bool $isRequired = false): array
+    private function generateArtistNames(string $placeHolder, bool $isRequired = false): array
     {
         return [
             'attr' => [
