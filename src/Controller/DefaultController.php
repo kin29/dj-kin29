@@ -55,7 +55,7 @@ class DefaultController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $this->artistTopTrackGetter->handleRequest();
+        return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
 
 //        $form = $this->createForm(ArtistNameListType::class, null, [
 //            'action' => $this->generateUrl('create_complete')
@@ -90,7 +90,7 @@ class DefaultController extends AbstractController
 //            'form' => $form->createView(),
 //        ]);
 
-        return $this->render('create/complete.html.twig');
+        //return $this->render('create/complete.html.twig');
     }
 
     /**
