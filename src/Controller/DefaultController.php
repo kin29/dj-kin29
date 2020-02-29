@@ -29,13 +29,7 @@ class DefaultController extends AbstractController
     public function index()
     {
         $this->spotifyAuth->handleRequest();
-    }
 
-    /**
-     * @Route("/create", name="create")
-     */
-    public function create()
-    {
         if (isset($_GET['error'])) { // ?error=access_denied とかってパラメータがついてるはず
             return $this->render('default/auth_failure.html.twig');
         }
