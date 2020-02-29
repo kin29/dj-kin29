@@ -53,7 +53,7 @@ class ArtistTopTrackGetter
         var_dump($artistNames);
         foreach ($artistNames as $artistName) {
             $results = $this->api->search($artistName, $type, array('limit' => 1));
-            var_dump($results);
+            var_dump($results);exit;
 
             if (count($results->artists->items) == 0) continue;
 
