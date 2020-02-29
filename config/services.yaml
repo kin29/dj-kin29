@@ -29,6 +29,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    SpotifyWebAPI\SpotifyWebAPI:
+    SpotifyWebAPI\Session:
+        arguments:
+            - '%env(SPOTIFY_CLIENT_ID)%'
+            - '%env(SPOTIFY_CLIENT_SECRET)%'
+            - '%env(SPOTIFY_REDIRECT_URI)%'
 
     App\Service\Spotify\AuthorizationHandler:
         arguments:
@@ -36,9 +42,8 @@ services:
             - '@SpotifyWebAPI\Session'
             - '@router'
 
-    SpotifyWebAPI\SpotifyWebAPI:
-    SpotifyWebAPI\Session:
+    App\Service\Spotify\ArtistTopTrackGetter:
         arguments:
-            - '%env(SPOTIFY_CLIENT_ID)%'
-            - '%env(SPOTIFY_CLIENT_SECRET)%'
-            - '%env(SPOTIFY_REDIRECT_URI)%'
+            - '@SpotifyWebAPI\SpotifyWebAPI'
+            - '@SpotifyWebAPI\Session'
+            - '@router'

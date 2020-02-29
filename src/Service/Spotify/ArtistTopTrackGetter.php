@@ -6,7 +6,7 @@ namespace App\Service\Spotify;
 use SpotifyWebAPI;
 use Symfony\Component\Routing\RouterInterface;
 
-class AuthorizationHandler
+class ArtistTopTrackGetter
 {
     /**
      * @var SpotifyWebAPI\SpotifyWebAPI
@@ -34,7 +34,11 @@ class AuthorizationHandler
         $this->router = $router;
     }
 
-    public function handleRequest()
+    /**
+     * @param array $artistNames
+     * @param string $type
+     */
+    public function get(array $artistNames, string $type = 'artist')
     {
         if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->router->generate('auth_failure');
@@ -44,12 +48,22 @@ class AuthorizationHandler
             $this->redirectAuth();
         }
 
-        $this->session->requestAccessToken($_GET['code']);
-        $this->api->setAccessToken($this->session->getAccessToken());
-        //print_r($this->api->me());
-        //print_r($this->session->getAccessToken());
+        $retTracks = [];
+        $retArtists = [];
+        foreach ($artistNames as $artistName) {
+            $results = $this->api->search($artistName, $type, array('limit' => 1));
 
-        return $this->router->generate('create');
+            if (count($results->artists->items) == 0) continue;
+
+            $artistId = $results->artists->items[0]->id;
+            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
+            foreach ($tracks as $track) {
+                $retTracks[] = $track->id;
+            }
+            $retArtists[] = $artistName;
+        }
+
+        return [$retTracks, $retArtists];
     }
 
     private function redirectAuth()
