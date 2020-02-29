@@ -77,12 +77,12 @@ class DefaultController extends AbstractController
                 if($data) $artistNames[] = $data;
             }
             //var_dump($artistNames);
-           $this->artistTopTrackGetter->handleRequest();
+           return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
 //            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
 //            var_dump($tracks);
 //            var_dump($artists);
 //
-            return $this->redirect($this->generateUrl('create_complete'));
+            //return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
         }
 
