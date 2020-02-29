@@ -70,7 +70,7 @@ class AuthorizationHandler
         $retArtists = [];
         foreach ($artistNames as $artistName) {
             $results = $this->api->search($artistName, $type, array('limit' => 1));
-
+            var_dump($results);
             if (count($results->artists->items) == 0) continue;
 
             $artistId = $results->artists->items[0]->id;
