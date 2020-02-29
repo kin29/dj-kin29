@@ -67,6 +67,8 @@ class DefaultController extends AbstractController
                 if($data) $artistNames[] = $data;
             }
             list($tracks, $artists) = $this->spotifyAuth->get($artistNames);
+            var_dump($tracks);
+            var_dump($artists);exit;
 
             return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
