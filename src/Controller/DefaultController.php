@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
      */
     public function post()
     {
-        return $this->render('post/index.html.twig', [
+        return $this->render('default/post.html.twig', [
             'controller_name' => 'PostController',
         ]);
     }
