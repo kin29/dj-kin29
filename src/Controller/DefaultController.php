@@ -55,7 +55,9 @@ class DefaultController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $form = $this->createForm(ArtistNameListType::class);
+        $form = $this->createForm(ArtistNameListType::class, null, [
+            'action' => $this->generateUrl('create_complete')
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
