@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Service\Spotify;
 
 
 use SpotifyWebAPI;
 use Symfony\Component\Routing\RouterInterface;
 
-class SpotifyAuthorizationHandler
+class AuthorizationHandler
 {
     /**
      * @var SpotifyWebAPI\SpotifyWebAPI
@@ -45,7 +45,7 @@ class SpotifyAuthorizationHandler
             $this->session->requestAccessToken($_GET['code']);
             $this->api->setAccessToken($this->session->getAccessToken());
 
-            print_r($this->api->me());
+            //print_r($this->api->me());
             //print_r($this->session->getAccessToken());
             return $this->router->generate('create');
         } else {

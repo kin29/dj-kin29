@@ -25,12 +25,12 @@ services:
 
     App\Controller\DefaultController:
         arguments:
-            - '@App\Service\SpotifyAuthorizationHandler'
+            - '@App\Service\Spotify\AuthorizationHandler'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Service\SpotifyAuthorizationHandler:
+    App\Service\Spotify\AuthorizationHandler:
         arguments:
             - '@SpotifyWebAPI\SpotifyWebAPI'
             - '@SpotifyWebAPI\Session'

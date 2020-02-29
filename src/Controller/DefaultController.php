@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Form\ArtistNameListType;
-use App\Service\SpotifyAuthorizationHandler;
+use App\Service\Spotify\AuthorizationHandler as SpotifyAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @var SpotifyAuthorizationHandler
+     * @var SpotifyAuth
      */
     private $spotifyAuth;
 
-    public function __construct(SpotifyAuthorizationHandler $spotifyAuth)
+    public function __construct(SpotifyAuth $spotifyAuth)
     {
         $this->spotifyAuth = $spotifyAuth;
     }
