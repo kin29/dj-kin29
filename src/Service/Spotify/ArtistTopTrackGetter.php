@@ -44,9 +44,9 @@ class ArtistTopTrackGetter
             return $this->router->generate('auth_failure');
         }
 
-        if (!isset($_GET['code'])) {
-            $this->redirectAuth();
-        }
+//        if (!isset($_GET['code'])) {
+//            $this->redirectAuth();
+//        }
 
         var_dump($_GET['code']);
         var_dump($this->session->getAccessToken()); //null...
