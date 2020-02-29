@@ -55,40 +55,40 @@ class DefaultController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
+        //return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
 
-//        $form = $this->createForm(ArtistNameListType::class, null, [
-//            'action' => $this->generateUrl('create_complete')
-//        ]);
+        $form = $this->createForm(ArtistNameListType::class, null, [
+            'action' => $this->generateUrl('create_complete')
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $artistNamesData = [
+                $data['artistName1'],
+                $data['artistName2'],
+                $data['artistName3'],
+                $data['artistName4'],
+                $data['artistName5'],
+            ];
+
+            $artistNames = [];
+            foreach ($artistNamesData as $data) {
+                if($data) $artistNames[] = $data;
+            }
+            //var_dump($artistNames);
+            $this->artistTopTrackGetter->handleRequest();
+//            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
+//            var_dump($tracks);
+//            var_dump($artists);
 //
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $data = $form->getData();
-//            $artistNamesData = [
-//                $data['artistName1'],
-//                $data['artistName2'],
-//                $data['artistName3'],
-//                $data['artistName4'],
-//                $data['artistName5'],
-//            ];
-//
-//            $artistNames = [];
-//            foreach ($artistNamesData as $data) {
-//                if($data) $artistNames[] = $data;
-//            }
-//            //var_dump($artistNames);
-//            $this->artistTopTrackGetter->handleRequest();
-////            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
-////            var_dump($tracks);
-////            var_dump($artists);
-////
-//            return $this->redirect($this->generateUrl('create_complete'));
-//            //renderは効かない
-//        }
-//
-//        return $this->render('create/index.html.twig', [
-//            'form' => $form->createView(),
-//        ]);
+            return $this->redirect($this->generateUrl('create_complete'));
+            //renderは効かない
+        }
+
+        return $this->render('create/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
 
         //return $this->render('create/complete.html.twig');
     }
