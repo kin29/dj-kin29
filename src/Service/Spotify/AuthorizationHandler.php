@@ -37,7 +37,7 @@ class AuthorizationHandler
 
     public function handleRequest()
     {
-        if (isset($_GET['error'])) { // ?error=access_denied とかってパラメータがついてるはず
+        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->router->generate('auth_failure');
         }
 

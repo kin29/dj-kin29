@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Form\ArtistNameListType;
 use App\Service\Spotify\AuthorizationHandler as SpotifyAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,21 +30,6 @@ class DefaultController extends AbstractController
     public function index(): RedirectResponse
     {
         return new RedirectResponse($this->spotifyAuth->handleRequest());
-    }
-
-    /**
-     * @Route("/create", name="create")
-     * @return Response
-     */
-    public function create(): Response
-    {
-        $form = $this->createForm(ArtistNameListType::class, null, [
-            //todo 'action' => $this->generateUrl('post'),
-        ]);
-
-        return $this->render('default/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
