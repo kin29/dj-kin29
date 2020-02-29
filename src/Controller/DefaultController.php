@@ -75,7 +75,7 @@ class DefaultController extends AbstractController
             var_dump($artistNames);
             list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
             var_dump($tracks);
-            var_dump($artists);exit;
+            var_dump($artists);
 
             return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
