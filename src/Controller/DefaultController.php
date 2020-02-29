@@ -14,10 +14,22 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        $form = $this->createForm(ArtistNameListType::class);
+        $form = $this->createForm(ArtistNameListType::class, null, [
+            'action' => $this->generateUrl('post'),
+        ]);
 
         return $this->render('default/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/post", name="post")
+     */
+    public function post()
+    {
+        return $this->render('post/index.html.twig', [
+            'controller_name' => 'PostController',
         ]);
     }
 }
