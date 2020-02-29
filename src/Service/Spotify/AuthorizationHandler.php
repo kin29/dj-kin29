@@ -62,9 +62,9 @@ class AuthorizationHandler
             return $this->router->generate('auth_failure');
         }
 
-        if (!isset($_GET['code'])) {
-            $this->redirectAuth();
-        }
+//        if (!isset($_GET['code'])) {
+//            $this->redirectAuth();
+//        }
 
         $retTracks = [];
         $retArtists = [];
