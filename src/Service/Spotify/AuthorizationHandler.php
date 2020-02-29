@@ -68,18 +68,18 @@ class AuthorizationHandler
 
         $retTracks = [];
         $retArtists = [];
-//        foreach ($artistNames as $artistName) {
-//            $results = $this->api->search($artistName, $type, array('limit' => 1));
-//
-//            if (count($results->artists->items) == 0) continue;
-//
-//            $artistId = $results->artists->items[0]->id;
-//            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-//            foreach ($tracks as $track) {
-//                $retTracks[] = $track->id;
-//            }
-//            $retArtists[] = $artistName;
-//        }
+        foreach ($artistNames as $artistName) {
+            $results = $this->api->search($artistName, $type, array('limit' => 1));
+
+            if (count($results->artists->items) == 0) continue;
+
+            $artistId = $results->artists->items[0]->id;
+            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
+            foreach ($tracks as $track) {
+                $retTracks[] = $track->id;
+            }
+            $retArtists[] = $artistName;
+        }
 
         return [$retTracks, $retArtists];
     }

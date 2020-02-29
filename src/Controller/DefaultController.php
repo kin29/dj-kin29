@@ -66,6 +66,7 @@ class DefaultController extends AbstractController
             foreach ($artistNamesData as $data) {
                 if($data) $artistNames[] = $data;
             }
+            var_dump($artistNames);
             list($tracks, $artists) = $this->spotifyAuth->get($artistNames);
             var_dump($tracks);
             var_dump($artists);exit;
