@@ -58,7 +58,7 @@ class DefaultController extends AbstractController
         //return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
 
         $form = $this->createForm(ArtistNameListType::class, null, [
-            'action' => $this->generateUrl('create_complete')
+           // 'action' => $this->generateUrl('create_complete')
         ]);
 
         $form->handleRequest($request);
