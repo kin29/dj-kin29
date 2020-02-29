@@ -49,11 +49,11 @@ class CreateController extends AbstractController
             foreach ($artistNamesData as $data) {
                 if($data) $artistNames[] = $data;
             }
-            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
+            //list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
 
             return $this->render('create/complete.html.twig', [
-                'tracks' => $tracks,
-                'artists' => $artists
+//                'tracks' => $tracks,
+//                'artists' => $artists
             ]);
         }
 
