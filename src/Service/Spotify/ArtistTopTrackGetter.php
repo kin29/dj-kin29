@@ -48,18 +48,20 @@ class ArtistTopTrackGetter
             $this->redirectAuth();
         }
 
+        var_dump($_GET['code']);
+        var_dump($this->session->getAccessToken()); //null...
+        var_dump($this->session->getRefreshToken());//null...
+        var_dump($this->session->requestAccessToken($_GET['code']));
+        var_dump($this->session->getAccessToken());
         $retTracks = [];
         $retArtists = [];
 //        foreach ($artistNames as $artistName) {
 //            $results = $this->api->search($artistName, $type, array('limit' => 1));
 //            var_dump($results);
-//
 //            if (count($results->artists->items) == 0) continue;
 //
 //            $artistId = $results->artists->items[0]->id;
-//            var_dump($artistId);
 //            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-//            var_dump($tracks);
 //            foreach ($tracks as $track) {
 //                $retTracks[] = $track->id;
 //            }

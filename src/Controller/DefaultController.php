@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Form\ArtistNameListType;
+use App\Service\Spotify\ArtistTopTrackGetter;
 use App\Service\Spotify\AuthorizationHandler as SpotifyAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,10 +18,15 @@ class DefaultController extends AbstractController
      * @var SpotifyAuth
      */
     private $spotifyAuth;
+    /**
+     * @var ArtistTopTrackGetter
+     */
+    private $artistTopTrackGetter;
 
-    public function __construct(SpotifyAuth $spotifyAuth)
+    public function __construct(SpotifyAuth $spotifyAuth, ArtistTopTrackGetter $artistTopTrackGetter)
     {
         $this->spotifyAuth = $spotifyAuth;
+        $this->artistTopTrackGetter = $artistTopTrackGetter;
     }
 
     /**
@@ -67,7 +73,7 @@ class DefaultController extends AbstractController
                 if($data) $artistNames[] = $data;
             }
             var_dump($artistNames);
-            list($tracks, $artists) = $this->spotifyAuth->handleRequest();
+            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
             var_dump($tracks);
             var_dump($artists);exit;
 
