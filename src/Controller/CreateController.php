@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route("/create")
@@ -49,16 +50,27 @@ class CreateController extends AbstractController
             foreach ($artistNamesData as $data) {
                 if($data) $artistNames[] = $data;
             }
-            //list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
+            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
+var_dump($tracks);var_dump($artists);exit;
 
-            return $this->render('create/complete.html.twig', [
-//                'tracks' => $tracks,
-//                'artists' => $artists
-            ]);
+            return $this->redirect($this->generateUrl('create_complete'));
+            //renderは効かない
         }
 
         return $this->render('create/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/complete", name="create_complete")
+     * @return Response
+     */
+    public function createComplete()
+    {
+        return $this->render('create/complete.html.twig', [
+//                'tracks' => $tracks,
+//                'artists' => $artists
         ]);
     }
 
