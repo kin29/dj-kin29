@@ -22,9 +22,9 @@ class SpotifyAuthorizationHandler
     {
         $this->api = new SpotifyWebAPI\SpotifyWebAPI();
         $this->session = new SpotifyWebAPI\Session(
-            getenv('CLIENT_ID'),
-            getenv('CLIENT_SECRET'),
-            getenv('REDIRECT_URI')
+            getenv('SPOTIFY_CLIENT_ID'),
+            getenv('SPOTIFY_CLIENT_SECRET'),
+            getenv('SPOTIFY_REDIRECT_URI')
         );
     }
 
