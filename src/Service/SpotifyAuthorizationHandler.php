@@ -26,6 +26,7 @@ class SpotifyAuthorizationHandler
 
     public function handleRequest()
     {
+        var_dump($_GET);exit;
         if (isset($_GET['code'])) {
             $this->session->requestAccessToken($_GET['code']);
             $this->api->setAccessToken($this->session->getAccessToken());
