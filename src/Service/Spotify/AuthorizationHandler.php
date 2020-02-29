@@ -41,25 +41,30 @@ class AuthorizationHandler
             return $this->router->generate('auth_failure');
         }
 
-        if (isset($_GET['code'])) {
-            $this->session->requestAccessToken($_GET['code']);
-            $this->api->setAccessToken($this->session->getAccessToken());
-
-            //print_r($this->api->me());
-            //print_r($this->session->getAccessToken());
-            return $this->router->generate('create');
-        } else {
-            header('Location: ' . $this->session->getAuthorizeUrl(
-                    [
-                        'scope' => [
-                            'playlist-read-private',
-                            'playlist-modify-private',
-                            'user-read-private',
-                            'playlist-modify'
-                        ]
-                    ])
-            );
-            exit;
+        if (!isset($_GET['code'])) {
+            $this->redirectAuth();
         }
+
+        $this->session->requestAccessToken($_GET['code']);
+        $this->api->setAccessToken($this->session->getAccessToken());
+        //print_r($this->api->me());
+        //print_r($this->session->getAccessToken());
+
+        return $this->router->generate('create');
+    }
+
+    public function redirectAuth()
+    {
+        header('Location: ' . $this->session->getAuthorizeUrl(
+                [
+                    'scope' => [
+                        'playlist-read-private',
+                        'playlist-modify-private',
+                        'user-read-private',
+                        'playlist-modify'
+                    ]
+                ])
+        );
+        exit;
     }
 }
