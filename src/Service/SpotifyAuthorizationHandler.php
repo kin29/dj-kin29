@@ -20,12 +20,8 @@ class SpotifyAuthorizationHandler
 
     public function __construct(SpotifyWebAPI\SpotifyWebAPI $api, SpotifyWebAPI\Session $session)
     {
-        $this->api = new SpotifyWebAPI\SpotifyWebAPI();
-        $this->session = new SpotifyWebAPI\Session(
-            getenv('SPOTIFY_CLIENT_ID'),
-            getenv('SPOTIFY_CLIENT_SECRET'),
-            getenv('SPOTIFY_REDIRECT_URI')
-        );
+        $this->api = $api;
+        $this->session = $session;
     }
 
     public function handleRequest()
