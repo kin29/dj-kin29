@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Form\ArtistNameListType;
 use App\Service\SpotifyAuthorizationHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,17 +24,21 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", name="index")
+     * @return RedirectResponse
      *
      * 初回時はSpotifyのauthorize画面orログイン画面となるはず
      */
-    public function index()
+    public function index(): RedirectResponse
     {
-        $this->spotifyAuth->handleRequest();
+        return new RedirectResponse($this->spotifyAuth->handleRequest());
+    }
 
-        if (isset($_GET['error'])) { // ?error=access_denied とかってパラメータがついてるはず
-            return $this->render('default/auth_failure.html.twig');
-        }
-
+    /**
+     * @Route("/create", name="create")
+     * @return Response
+     */
+    public function create(): Response
+    {
         $form = $this->createForm(ArtistNameListType::class, null, [
             //todo 'action' => $this->generateUrl('post'),
         ]);
@@ -41,5 +46,14 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/auth_failure", name="auth_failure")
+     * @return Response
+     */
+    public function authFailure(): Response
+    {
+        return $this->render('default/auth_failure.html.twig');
     }
 }
