@@ -46,8 +46,8 @@ class AuthorizationHandler
 
         $this->session->requestAccessToken($_GET['code']);
         $this->api->setAccessToken($this->session->getAccessToken());
-        //print_r($this->api->me());
-        //print_r($this->session->getAccessToken());
+        print_r($this->api->me());
+        print_r($this->session->getAccessToken());
 
         return $this->router->generate('create'). '?code=' . $_GET['code'];
     }
@@ -67,8 +67,8 @@ class AuthorizationHandler
         }
 
         var_dump($_GET['code']);
-        var_dump($this->session->getAccessToken());
-        var_dump($this->session->getRefreshToken());
+        //var_dump($this->session->getAccessToken()); //null...
+        //var_dump($this->session->getRefreshToken());//null...
         var_dump($this->session->requestAccessToken($_GET['code']));
         var_dump($this->session->getAccessToken());
         $retTracks = [];
