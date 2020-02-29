@@ -41,6 +41,7 @@ class ArtistTopTrackGetter
 
     public function handleRequest()
     {
+        var_dump($this->session->getAccessToken());exit;
         if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->router->generate('auth_failure');
         }
