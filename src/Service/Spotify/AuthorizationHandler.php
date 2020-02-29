@@ -47,7 +47,7 @@ class AuthorizationHandler
         $this->session->requestAccessToken($_GET['code']);
         $this->api->setAccessToken($this->session->getAccessToken());
         print_r($this->api->me());
-        print_r($this->session->getAccessToken());
+        print_r($this->session->getAccessToken());exit;
 
         return $this->router->generate('create'). '?code=' . $_GET['code'];
     }
