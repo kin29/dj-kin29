@@ -66,6 +66,7 @@ class AuthorizationHandler
             $this->redirectAuth();
         }
 
+        var_dump($_GET['code']);
         var_dump($this->session->getAccessToken());
         var_dump($this->session->getRefreshToken());
         var_dump($this->session->requestAccessToken($_GET['code']));
