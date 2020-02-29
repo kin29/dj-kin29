@@ -22,6 +22,8 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", name="index")
+     *
+     * 初回時はauthorize画面となるはず
      */
     public function index()
     {
@@ -37,12 +39,10 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/post", name="post")
+     * @Route("/auth_failure", name="auth_failure")
      */
-    public function post()
+    public function authFailure()
     {
-        return $this->render('default/post.html.twig', [
-            'controller_name' => 'PostController',
-        ]);
+        return $this->render('default/auth_failure.html.twig');
     }
 }
