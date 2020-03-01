@@ -85,7 +85,9 @@ class ArtistTopTrackGetter
             $this->redirectAuth();
         }
 
-        return $this->session->getAccessToken();
+        $this->api->setAccessToken($this->session->getAccessToken());
+        print_r($this->api->me());exit;
+        //return $this->session->getAccessToken();
 //        print_r($this->api->me());
 //        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
 //        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
