@@ -57,10 +57,7 @@ class DefaultController extends AbstractController
         if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->render('default/auth_failure.html.twig');
         }
-
-        $form = $this->createForm(ArtistNameListType::class, null, [
-            // 'action' => $this->generateUrl('create_complete')
-        ]);
+        $form = $this->createForm(ArtistNameListType::class);
 
         return $this->render('create/index.html.twig', [
             'form' => $form->createView(),
@@ -69,6 +66,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/create", name="create", methods={"POST"})
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request): Response
@@ -92,7 +90,7 @@ class DefaultController extends AbstractController
                 if($artistName) $artistNames[] = $artistName;
             }
             list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
-            $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPublic']);
+            $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],

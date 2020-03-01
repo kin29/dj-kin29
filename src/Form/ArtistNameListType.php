@@ -25,16 +25,9 @@ class ArtistNameListType extends AbstractType
                 ],
                 'empty_data' => 'default name'
             ])
-            ->add('isPublic', CheckboxType::class, [
-                'label' => 'public',
+            ->add('isPrivate', CheckboxType::class, [
+                'label' => 'Private playlist',
                 'required' => false,
-                'attr' => [
-                    'checked' => 'checked',
-                ],
-            ])
-            ->add('allowCookie', CheckboxType::class, [
-                'label' => 'allow use cookie',
-                'required' => true,
                 'attr' => [
                     'checked' => 'checked',
                 ],
