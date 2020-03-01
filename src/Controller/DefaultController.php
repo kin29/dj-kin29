@@ -95,11 +95,15 @@ class DefaultController extends AbstractController
                 if($artistName) $artistNames[] = $artistName;
             }
             list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
-            //list($name, $url, $image) = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
             $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPublic']);
+            //return $this->redirect($this->generateUrl('create_complete'). '?playlist_url=' . $playListInfo['url']);
 
-
-            return $this->redirect($this->generateUrl('create_complete'). '?playlist_url=' . $playListInfo['url']);
+            return $this->render('create/complete.html.twig', [
+                'name' => $playListInfo['name'],
+                'url' => $playListInfo['url'],
+                'created_artists' =>implode(' / ', $retArtists),
+                'image' => $playListInfo['image'],
+            ]);
 
             //return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
@@ -114,9 +118,12 @@ class DefaultController extends AbstractController
      */
     public function createComplete()
     {
+        $retArtists = ['aaa', 'bbb'];
         return $this->render('create/complete.html.twig', [
-//                'tracks' => $tracks,
-//                'artists' => $artists
+            'name' => 'test-name',
+            'url' => 'test-url',
+            'created_artists' => implode(' / ', $retArtists),
+            'image' => 'test-image',
         ]);
     }
 
