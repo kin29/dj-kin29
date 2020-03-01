@@ -66,7 +66,8 @@ class ArtistTopTrackGetter
 //        $this->api->setAccessToken($this->session->getAccessToken());
 //        $results = $this->api->me();
         $this->session->requestAccessToken($_GET['code']);
-        $result = $this->session->getAccessToken();
+        $this->api->setAccessToken($this->session->getAccessToken());
+        $result = $this->api->me();
 
         //$results = $this->api->search($artistNames[0], $type, array('limit' => 1));
 //        return $this->session->getAccessToken();
