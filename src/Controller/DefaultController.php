@@ -95,7 +95,7 @@ class DefaultController extends AbstractController
                 if($data) $artistNames[] = $data;
             }
             $ret = $this->artistTopTrackGetter->get($artistNames);
-            return $this->redirect($this->generateUrl('create_complete'). '?me=' . $ret);
+            return $this->redirect($this->generateUrl('create_complete'). '?ret_artist=' . $ret);
 
 //            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
 //            var_dump($tracks);
