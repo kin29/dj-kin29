@@ -86,26 +86,19 @@ class ArtistTopTrackGetter
         }
 
         $this->api->setAccessToken($this->session->getAccessToken()); //api使うにはこれが必要っぽい！
-        print_r($tracks);
-        print_r($playlistName);
-        print_r($isPublic);
-        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
+        //print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
 
-//        var_dump($playlistName);
-//        var_dump($isPublic);
-//        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
-//        $playlist = $this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]);
-//        return $playlist->id;
-//        $playlistId = $playlist->id;
-//        $this->api->addPlaylistTracks($playlistId, $tracks);
-//        $playlist = $this->api->getPlaylist($playlistId);
-//
-//        //todo ここの分割作業を別関数にしたい。
-//        return  [
-//            'name' => $playlist->name,
-//            'url' => $playlist->external_urls->spotify,
-//            'image' => $playlist->images[0]->url
-//        ];
+        $playlist = $this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]);
+        $playlistId = $playlist->id;
+        $this->api->addPlaylistTracks($playlistId, $tracks);
+        $playlist = $this->api->getPlaylist($playlistId);
+
+        //todo ここの分割作業を別関数にしたい。
+        return  [
+            'name' => $playlist->name,
+            'url' => $playlist->external_urls->spotify,
+            'image' => $playlist->images[0]->url
+        ];
     }
 
     private function redirectAuth()
