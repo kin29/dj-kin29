@@ -89,7 +89,7 @@ class ArtistTopTrackGetter
         print_r($tracks);
         print_r($playlistName);
         print_r($isPublic);
-        print_r($this->api->me());exit;
+        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
 
 //        var_dump($playlistName);
 //        var_dump($isPublic);

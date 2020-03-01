@@ -25,9 +25,9 @@ class ArtistNameListType extends AbstractType
                 ],
                 'empty_data' => 'default name'
             ])
-            ->add('public', CheckboxType::class, [
+            ->add('isPublic', CheckboxType::class, [
                 'label' => 'public',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'checked' => 'checked',
                 ],
