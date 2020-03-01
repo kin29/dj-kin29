@@ -50,19 +50,36 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="create")
+     * @Route("/create", name="create_get", methods={"GET"})
+     * @return Response
+     */
+    public function createGet()
+    {
+        $form = $this->createForm(ArtistNameListType::class, null, [
+            // 'action' => $this->generateUrl('create_complete')
+        ]);
+
+        return $this->render('create/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/create", name="create", methods={"POST"})
      * @return Response
      */
     public function create(Request $request): Response
     {
-        //return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
-
         $form = $this->createForm(ArtistNameListType::class, null, [
            // 'action' => $this->generateUrl('create_complete')
         ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->artistTopTrackGetter->handleRequest();
+            return $this->redirect($this->generateUrl('create_complete'));
+
             $data = $form->getData();
             $artistNamesData = [
                 $data['artistName1'],
@@ -76,8 +93,6 @@ class DefaultController extends AbstractController
             foreach ($artistNamesData as $data) {
                 if($data) $artistNames[] = $data;
             }
-            //var_dump($artistNames);
-           return new RedirectResponse($this->artistTopTrackGetter->handleRequest());
 //            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
 //            var_dump($tracks);
 //            var_dump($artists);
@@ -86,11 +101,7 @@ class DefaultController extends AbstractController
             //renderは効かない
         }
 
-        return $this->render('create/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
-        //return $this->render('create/complete.html.twig');
+        return $this->render('create/failure.html.twig');
     }
 
     /**
