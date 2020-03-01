@@ -63,8 +63,9 @@ class ArtistTopTrackGetter
 //        var_dump($this->session->getRefreshToken());//null...
 //        var_dump($this->session->requestAccessToken($_GET['code']));
 
-        $this->api->setAccessToken($this->session->getAccessToken());
-        $results = $this->api->me();
+//        $this->api->setAccessToken($this->session->getAccessToken());
+//        $results = $this->api->me();
+        $result = $this->session->getAccessToken();
 
         //$results = $this->api->search($artistNames[0], $type, array('limit' => 1));
 //        return $this->session->getAccessToken();
@@ -84,7 +85,7 @@ class ArtistTopTrackGetter
 //        }
 //
 //        return [$retTracks, $retArtists];
-        return $results;
+        return $result;
     }
 
     private function redirectAuth()
