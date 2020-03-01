@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Form\ArtistNameListType;
-use App\Service\Spotify\ArtistTopTrackGetter;
+use App\Service\Spotify\AuthAndApiHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @var ArtistTopTrackGetter
+     * @var AuthAndApiHandler
      */
-    private $artistTopTrackGetter;
+    private $authAndApiHandler;
 
-    public function __construct(ArtistTopTrackGetter $artistTopTrackGetter)
+    public function __construct(AuthAndApiHandler $authAndApiHandler)
     {
-        $this->artistTopTrackGetter = $artistTopTrackGetter;
+        $this->authAndApiHandler = $authAndApiHandler;
     }
 
     /**
@@ -30,7 +30,7 @@ class DefaultController extends AbstractController
      */
     public function index(): void
     {
-        $this->artistTopTrackGetter->handleRequest();
+        $this->authAndApiHandler->handleRequest();
     }
 
     /**
@@ -74,8 +74,8 @@ class DefaultController extends AbstractController
             foreach ($artistNamesData as $artistName) {
                 if($artistName) $artistNames[] = $artistName;
             }
-            list($retTracks, $retArtists) = $this->artistTopTrackGetter->getTopTrack($artistNames);
-            $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
+            list($retTracks, $retArtists) = $this->authAndApiHandler->getTopTrack($artistNames);
+            $playListInfo = $this->authAndApiHandler->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],

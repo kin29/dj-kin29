@@ -25,7 +25,7 @@ services:
 
     App\Controller\DefaultController:
         arguments:
-            - '@App\Service\Spotify\ArtistTopTrackGetter'
+            - '@App\Service\Spotify\AuthAndApiHandler'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -36,13 +36,7 @@ services:
             - '%env(SPOTIFY_CLIENT_SECRET)%'
             - '%env(SPOTIFY_REDIRECT_URI)%'
 
-    App\Service\Spotify\AuthorizationHandler:
-        arguments:
-            - '@SpotifyWebAPI\SpotifyWebAPI'
-            - '@SpotifyWebAPI\Session'
-            - '@router'
-
-    App\Service\Spotify\ArtistTopTrackGetter:
+    App\Service\Spotify\AuthAndApiHandler:
         arguments:
             - '@SpotifyWebAPI\SpotifyWebAPI'
             - '@SpotifyWebAPI\Session'

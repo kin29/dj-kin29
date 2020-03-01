@@ -6,7 +6,7 @@ namespace App\Service\Spotify;
 use SpotifyWebAPI;
 use Symfony\Component\Routing\RouterInterface;
 
-class ArtistTopTrackGetter
+class AuthAndApiHandler
 {
     /**
      * @var SpotifyWebAPI\SpotifyWebAPI
@@ -55,8 +55,8 @@ class ArtistTopTrackGetter
             $this->redirectAuth();
         }
 
-        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
-        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
+        $this->session->requestAccessToken($_GET['code']); //これ必要だった！？
+        $this->api->setAccessToken($this->session->getAccessToken()); //これは必要だったっぽい！
 
         $retTracks = [];
         $retArtists = [];
