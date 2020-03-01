@@ -62,7 +62,7 @@ class ArtistTopTrackGetter
         var_dump($this->session->getAccessToken()); //null...
         var_dump($this->session->getRefreshToken());//null...
         var_dump($this->session->requestAccessToken($_GET['code']));
-        var_dump($this->session->getAccessToken());
+        return $this->session->getAccessToken();
         $retTracks = [];
         $retArtists = [];
 //        foreach ($artistNames as $artistName) {

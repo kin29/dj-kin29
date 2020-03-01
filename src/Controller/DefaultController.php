@@ -81,8 +81,8 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->artistTopTrackGetter->get(['tempalay']);
-            return $this->redirect($this->generateUrl('create_complete'));
+            $ret = $this->artistTopTrackGetter->get(['tempalay']);
+            return $this->redirect($this->generateUrl('create_complete'). '?access_token=' . $ret);
 
             $data = $form->getData();
             $artistNamesData = [
