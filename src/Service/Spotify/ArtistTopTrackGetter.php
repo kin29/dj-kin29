@@ -58,37 +58,27 @@ class ArtistTopTrackGetter
             $this->redirectAuth();
         }
 
-//        var_dump($_GET['code']);
-//        var_dump($this->session->getAccessToken()); //null...
-//        var_dump($this->session->getRefreshToken());//null...
-//        var_dump($this->session->requestAccessToken($_GET['code']));
+        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
+        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
 
-//        $this->api->setAccessToken($this->session->getAccessToken());
-//        $results = $this->api->me();
-        $this->session->requestAccessToken($_GET['code']);
-        $this->api->setAccessToken($this->session->getAccessToken());
-        print_r($this->api->search($artistNames[0], $type, array('limit' => 1)));exit;
-        $result = 'meでて！';
+        $retTracks = [];
+        $retArtists = [];
+        foreach ($artistNames as $artistName) {
+            $results = $this->api->search($artistName, $type, array('limit' => 1));
 
-        //$results = $this->api->search($artistNames[0], $type, array('limit' => 1));
-//        return $this->session->getAccessToken();
-//        $retTracks = [];
-//        $retArtists = [];
-//        foreach ($artistNames as $artistName) {
-//            $results = $this->api->search($artistName, $type, array('limit' => 1));
-//
-//            if (count($results->artists->items) == 0) continue;
-//
-//            $artistId = $results->artists->items[0]->id;
-//            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-//            foreach ($tracks as $track) {
-//                $retTracks[] = $track->id;
-//            }
-//            $retArtists[] = $artistName;
-//        }
-//
-//        return [$retTracks, $retArtists];
-        return $result;
+            if (count($results->artists->items) == 0) continue;
+
+            $artistId = $results->artists->items[0]->id;
+            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
+            foreach ($tracks as $track) {
+                $retTracks[] = $track->id;
+            }
+            $retArtists[] = $artistName;
+        }
+
+        print_r($retTracks);
+        print_r($retArtists);exit;
+        //return [$retTracks, $retArtists];
     }
 
     private function redirectAuth()
