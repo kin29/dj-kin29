@@ -96,10 +96,10 @@ class DefaultController extends AbstractController
             }
             list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
             //list($name, $url, $image) = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
-            $ret = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
+            //$ret = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
 
 
-            return $this->redirect($this->generateUrl('create_complete'). '?access_token=' . $ret);
+            return $this->redirect($this->generateUrl('create_complete'). '?ret_track=' . $retTracks[0]);
 
             //return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
