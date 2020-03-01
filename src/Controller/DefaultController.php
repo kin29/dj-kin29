@@ -34,19 +34,10 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/auth_failure", name="auth_failure")
-     * @return Response
-     */
-    public function authFailure(): Response
-    {
-        return $this->render('default/auth_failure.html.twig');
-    }
-
-    /**
      * @Route("/create", name="create_get", methods={"GET"})
      * @return Response
      */
-    public function createGet()
+    public function create()
     {
         if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->render('default/auth_failure.html.twig');
@@ -63,7 +54,7 @@ class DefaultController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function createPost(Request $request): Response
     {
         $form = $this->createForm(ArtistNameListType::class);
 

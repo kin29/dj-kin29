@@ -42,10 +42,6 @@ class ArtistTopTrackGetter
 
         $this->session->requestAccessToken($_GET['code']);
         $this->api->setAccessToken($this->session->getAccessToken());
-//        print_r($this->api->me());
-//        print_r($this->session->getAccessToken());
-
-        //return $this->router->generate('create_complete')/*. '?code=' . $_GET['code']*/;
     }
 
     /**
