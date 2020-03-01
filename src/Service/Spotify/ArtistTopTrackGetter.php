@@ -79,18 +79,17 @@ class ArtistTopTrackGetter
         return [$retTracks, $retArtists];
     }
 
-    public function makePlaylist(/*array $tracks, string $playlistName, bool $isPublic = true*/)
+    public function makePlaylist(array $tracks, string $playlistName, bool $isPublic = true)
     {
         if (!isset($_GET['code'])) {
             $this->redirectAuth();
         }
 
-        $this->api->setAccessToken($this->session->getAccessToken());
+        $this->api->setAccessToken($this->session->getAccessToken()); //api使うにはこれが必要っぽい！
+        var_dump($tracks);
+        var_dump($playlistName);
+        var_dump($isPublic);
         print_r($this->api->me());exit;
-        //return $this->session->getAccessToken();
-//        print_r($this->api->me());
-//        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
-//        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
 
 //        var_dump($playlistName);
 //        var_dump($isPublic);
