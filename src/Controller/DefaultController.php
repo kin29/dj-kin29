@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
      */
     public function index(): void
     {
-        $this->spotifyAuth->handleRequest();
+        $this->artistTopTrackGetter->handleRequest();
     }
 
     /**
