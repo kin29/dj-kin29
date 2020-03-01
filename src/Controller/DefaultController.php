@@ -74,7 +74,7 @@ class DefaultController extends AbstractController
             foreach ($artistNamesData as $artistName) {
                 if($artistName) $artistNames[] = $artistName;
             }
-            list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
+            list($retTracks, $retArtists) = $this->artistTopTrackGetter->getTopTrack($artistNames);
             $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [

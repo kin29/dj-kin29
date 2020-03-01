@@ -47,8 +47,9 @@ class ArtistTopTrackGetter
     /**
      * @param array $artistNames
      * @param string $type
+     * @return array
      */
-    public function get(array $artistNames, string $type = 'artist')
+    public function getTopTrack(array $artistNames, string $type = 'artist')
     {
         if (!isset($_GET['code'])) {
             $this->redirectAuth();
@@ -75,6 +76,12 @@ class ArtistTopTrackGetter
         return [$retTracks, $retArtists];
     }
 
+    /**
+     * @param array $tracks
+     * @param string $playlistName
+     * @param bool $isPrivate
+     * @return array
+     */
     public function makePlaylist(array $tracks, string $playlistName, bool $isPrivate = true)
     {
         if (!isset($_GET['code'])) {
