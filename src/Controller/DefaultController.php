@@ -81,7 +81,7 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->artistTopTrackGetter->handleRequest();
+            $this->artistTopTrackGetter->get(['tempalay']);
             return $this->redirect($this->generateUrl('create_complete'));
 
             $data = $form->getData();

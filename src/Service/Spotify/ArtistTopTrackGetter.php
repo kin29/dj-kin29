@@ -54,13 +54,9 @@ class ArtistTopTrackGetter
      */
     public function get(array $artistNames, string $type = 'artist')
     {
-        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
-            return $this->router->generate('auth_failure');
+        if (!isset($_GET['code'])) {
+            $this->redirectAuth();
         }
-
-//        if (!isset($_GET['code'])) {
-//            $this->redirectAuth();
-//        }
 
         var_dump($_GET['code']);
         var_dump($this->session->getAccessToken()); //null...
