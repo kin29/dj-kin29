@@ -5,25 +5,26 @@
 {% block body %}
     {{ parent() }}
 
-    <div class="example-wrapper">
-        プレイリスト作成が完了しました🍺
-        <div class="thumbnail">
-            <div class="caption">
-                <ul>
-                    <li>playlist-name: {{ name }}</li>
-                    <li>playlist-uri: <a href="{{ url }}" target="_blank">{{ url }}</a></li>
-                    <li>created-artists: {{ created_artists }}</li>
-                </ul>
+    <div class="container mt-3">
+        <div class="col-md-5">
+            プレイリスト作成が完了しました🍺
+            <div class="thumbnail">
+                <div class="caption">
+                    <ul>
+                        <li>playlist-name: {{ name }}</li>
+                        <li>playlist-uri: <a href="{{ url }}" target="_blank">{{ url }}</a></li>
+                        <li>created-artists: {{ created_artists }}</li>
+                    </ul>
+                </div>
+                <a href="{{ url }}" target="_blank">
+                    <img src="{{ image }}" alt="image" style="width:100%">
+                </a>
             </div>
-            <a href="{{ url }}" target="_blank">
-                <img src="{{ image }}" alt="image" style="width:100%">
-            </a>
-        </div>
-        <div class="row mt-3">
-            <div class="col-sm-10">
-                <a href="/" class="btn btn-primary">More Create！</a>
+            <div class="row mt-3">
+                <div class="col-sm-10">
+                    <a href="/" class="btn btn-primary">More Create！</a>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}
