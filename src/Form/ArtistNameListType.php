@@ -47,7 +47,6 @@ class ArtistNameListType extends AbstractType
             'attr' => [
                 'placeholder' => $placeHolder,
             ],
-            'label' => false,
             'required' => $isRequired
         ];
     }
