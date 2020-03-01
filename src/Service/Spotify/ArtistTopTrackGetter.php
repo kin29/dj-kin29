@@ -88,8 +88,10 @@ class ArtistTopTrackGetter
         $this->session->requestAccessToken($_GET['code']); //これ必要だった！
         $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
 
+        var_dump($playlistName);
+        var_dump($isPublic);
+        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
         $playlist = $this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]);
-
         return $playlist->id;
 //        $playlistId = $playlist->id;
 //        $this->api->addPlaylistTracks($playlistId, $tracks);
