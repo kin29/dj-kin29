@@ -3,6 +3,7 @@
 
 namespace App\Form;
 
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,7 +24,7 @@ class ArtistNameListType extends AbstractType
                 'attr' => [
                     'placeholder' => 'playlist name',
                 ],
-                'empty_data' => 'default name'
+                'data' => 'dj-kin29-' . (new DateTime())->format('YmdHi')
             ])
             ->add('isPrivate', CheckboxType::class, [
                 'label' => 'Private playlist',
