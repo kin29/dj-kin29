@@ -25,7 +25,6 @@ services:
 
     App\Controller\DefaultController:
         arguments:
-            - '@App\Service\Spotify\AuthorizationHandler'
             - '@App\Service\Spotify\ArtistTopTrackGetter'
 
     # add more service definitions when explicit configuration is needed

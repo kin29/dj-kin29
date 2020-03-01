@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Form\ArtistNameListType;
 use App\Service\Spotify\ArtistTopTrackGetter;
-use App\Service\Spotify\AuthorizationHandler as SpotifyAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @var SpotifyAuth
-     */
-    private $spotifyAuth;
-    /**
      * @var ArtistTopTrackGetter
      */
     private $artistTopTrackGetter;
 
-    public function __construct(SpotifyAuth $spotifyAuth, ArtistTopTrackGetter $artistTopTrackGetter)
+    public function __construct(ArtistTopTrackGetter $artistTopTrackGetter)
     {
-        $this->spotifyAuth = $spotifyAuth;
         $this->artistTopTrackGetter = $artistTopTrackGetter;
     }
 
@@ -100,15 +94,6 @@ class DefaultController extends AbstractController
             ]);
         }
 
-        return $this->render('create/failure.html.twig');
-    }
-
-    /**
-     * @Route("/create/failure", name="create_failure")
-     * @return Response
-     */
-    public function createFailure(): Response
-    {
         return $this->render('create/failure.html.twig');
     }
 }
