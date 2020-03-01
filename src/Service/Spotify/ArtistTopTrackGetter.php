@@ -62,23 +62,27 @@ class ArtistTopTrackGetter
 //        var_dump($this->session->getAccessToken()); //null...
 //        var_dump($this->session->getRefreshToken());//null...
 //        var_dump($this->session->requestAccessToken($_GET['code']));
+
+
+        $results = $this->api->search($artistNames[0], $type, array('limit' => 1));
 //        return $this->session->getAccessToken();
-        $retTracks = [];
-        $retArtists = [];
-        foreach ($artistNames as $artistName) {
-            $results = $this->api->search($artistName, $type, array('limit' => 1));
-            var_dump($results);
-            if (count($results->artists->items) == 0) continue;
-
-            $artistId = $results->artists->items[0]->id;
-            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-            foreach ($tracks as $track) {
-                $retTracks[] = $track->id;
-            }
-            $retArtists[] = $artistName;
-        }
-
-        return [$retTracks, $retArtists];
+//        $retTracks = [];
+//        $retArtists = [];
+//        foreach ($artistNames as $artistName) {
+//            $results = $this->api->search($artistName, $type, array('limit' => 1));
+//
+//            if (count($results->artists->items) == 0) continue;
+//
+//            $artistId = $results->artists->items[0]->id;
+//            $tracks = $this->api->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
+//            foreach ($tracks as $track) {
+//                $retTracks[] = $track->id;
+//            }
+//            $retArtists[] = $artistName;
+//        }
+//
+//        return [$retTracks, $retArtists];
+        return $results;
     }
 
     private function redirectAuth()
