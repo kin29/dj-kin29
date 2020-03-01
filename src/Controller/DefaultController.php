@@ -7,7 +7,6 @@ use App\Form\ArtistNameListType;
 use App\Service\Spotify\ArtistTopTrackGetter;
 use App\Service\Spotify\AuthorizationHandler as SpotifyAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,9 +73,7 @@ class DefaultController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $form = $this->createForm(ArtistNameListType::class, null, [
-           // 'action' => $this->generateUrl('create_complete')
-        ]);
+        $form = $this->createForm(ArtistNameListType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,7 +93,6 @@ class DefaultController extends AbstractController
             }
             list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
             $playListInfo = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName'], $data['isPublic']);
-            //return $this->redirect($this->generateUrl('create_complete'). '?playlist_url=' . $playListInfo['url']);
 
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],
@@ -104,27 +100,9 @@ class DefaultController extends AbstractController
                 'created_artists' =>implode(' / ', $retArtists),
                 'image' => $playListInfo['image'],
             ]);
-
-            //return $this->redirect($this->generateUrl('create_complete'));
-            //renderは効かない
         }
 
         return $this->render('create/failure.html.twig');
-    }
-
-    /**
-     * @Route("/create/complete", name="create_complete")
-     * @return Response
-     */
-    public function createComplete()
-    {
-        $retArtists = ['aaa', 'bbb'];
-        return $this->render('create/complete.html.twig', [
-            'name' => 'test-name',
-            'url' => 'test-url',
-            'created_artists' => implode(' / ', $retArtists),
-            'image' => 'test-image',
-        ]);
     }
 
     /**
