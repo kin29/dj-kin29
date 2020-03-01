@@ -91,15 +91,15 @@ class DefaultController extends AbstractController
             ];
 
             $artistNames = [];
-            foreach ($artistNamesData as $data) {
-                if($data) $artistNames[] = $data;
+            foreach ($artistNamesData as $artistName) {
+                if($artistName) $artistNames[] = $artistName;
             }
             list($retTracks, $retArtists) = $this->artistTopTrackGetter->get($artistNames);
             //list($name, $url, $image) = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
-            //$ret = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
+            $ret = $this->artistTopTrackGetter->makePlaylist($retTracks, $data['playlistName']);
 
 
-            return $this->redirect($this->generateUrl('create_complete'). '?playlist=' . $data['playlistName']);
+            return $this->redirect($this->generateUrl('create_complete'). '?playlist=' . $ret);
 
             //return $this->redirect($this->generateUrl('create_complete'));
             //renderは効かない
