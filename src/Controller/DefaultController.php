@@ -31,13 +31,12 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     * @return RedirectResponse
      *
      * 初回時はSpotifyのauthorize画面orログイン画面となるはず
      */
-    public function index(): RedirectResponse
+    public function index(): void
     {
-        return new RedirectResponse($this->spotifyAuth->handleRequest());
+        $this->spotifyAuth->handleRequest();
     }
 
     /**
