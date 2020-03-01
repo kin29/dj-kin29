@@ -79,7 +79,7 @@ class ArtistTopTrackGetter
         return [$retTracks, $retArtists];
     }
 
-    public function makePlaylist(array $tracks, string $playlistName, bool $isPublic = true)
+    public function makePlaylist(/*array $tracks, string $playlistName, bool $isPublic = true*/)
     {
         if (!isset($_GET['code'])) {
             $this->redirectAuth();
