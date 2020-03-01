@@ -33,6 +33,7 @@ class DefaultController extends AbstractController
      * @Route("/", name="index")
      *
      * 初回時はSpotifyのauthorize画面orログイン画面となるはず
+     * 初回時以外or認証許可/拒否後は、/createにリダイレクトする
      */
     public function index(): void
     {

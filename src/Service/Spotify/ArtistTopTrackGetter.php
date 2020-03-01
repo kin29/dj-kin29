@@ -36,20 +36,16 @@ class ArtistTopTrackGetter
 
     public function handleRequest()
     {
-        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
-            return $this->router->generate('auth_failure');
-        }
-
         if (!isset($_GET['code'])) {
             $this->redirectAuth();
         }
 
-//        $this->session->requestAccessToken($_GET['code']);
-//        $this->api->setAccessToken($this->session->getAccessToken());
+        $this->session->requestAccessToken($_GET['code']);
+        $this->api->setAccessToken($this->session->getAccessToken());
 //        print_r($this->api->me());
 //        print_r($this->session->getAccessToken());
 
-        return $this->router->generate('create_complete')/*. '?code=' . $_GET['code']*/;
+        //return $this->router->generate('create_complete')/*. '?code=' . $_GET['code']*/;
     }
 
     /**
