@@ -81,9 +81,6 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $ret = $this->artistTopTrackGetter->get(['tempalay']);
-            return $this->redirect($this->generateUrl('create_complete'). '?access_token=' . $ret);
-
             $data = $form->getData();
             $artistNamesData = [
                 $data['artistName1'],
@@ -97,6 +94,9 @@ class DefaultController extends AbstractController
             foreach ($artistNamesData as $data) {
                 if($data) $artistNames[] = $data;
             }
+            $ret = $this->artistTopTrackGetter->get($artistNames);
+            return $this->redirect($this->generateUrl('create_complete'). '?access_token=' . $ret);
+
 //            list($tracks, $artists) = $this->artistTopTrackGetter->get($artistNames);
 //            var_dump($tracks);
 //            var_dump($artists);
