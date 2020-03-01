@@ -86,9 +86,9 @@ class ArtistTopTrackGetter
         }
 
         $this->api->setAccessToken($this->session->getAccessToken()); //api使うにはこれが必要っぽい！
-        var_dump($tracks);
-        var_dump($playlistName);
-        var_dump($isPublic);
+        print_r($tracks);
+        print_r($playlistName);
+        print_r($isPublic);
         print_r($this->api->me());exit;
 
 //        var_dump($playlistName);
