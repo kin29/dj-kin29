@@ -55,6 +55,10 @@ class DefaultController extends AbstractController
      */
     public function createGet()
     {
+        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
+            return $this->render('default/auth_failure.html.twig');
+        }
+
         $form = $this->createForm(ArtistNameListType::class, null, [
             // 'action' => $this->generateUrl('create_complete')
         ]);
