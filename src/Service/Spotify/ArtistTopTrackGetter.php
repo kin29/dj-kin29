@@ -85,12 +85,14 @@ class ArtistTopTrackGetter
             $this->redirectAuth();
         }
 
-        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
-        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
+        print_r($this->session->getAccessToken());
+        print_r($this->api->me());exit;
+//        $this->session->requestAccessToken($_GET['code']); //これ必要だった！
+//        $this->api->setAccessToken($this->session->getAccessToken()); //これも必要だったっぽい！
 
-        var_dump($playlistName);
-        var_dump($isPublic);
-        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
+//        var_dump($playlistName);
+//        var_dump($isPublic);
+//        print_r($this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]));exit;
         $playlist = $this->api->createPlaylist(['name' => $playlistName, 'public' => $isPublic]);
         return $playlist->id;
 //        $playlistId = $playlist->id;
