@@ -21,9 +21,7 @@ class ArtistNameListType extends AbstractType
             ->add('artistName4', TextType::class, $this->generateArtistNames('artist_name4'))
             ->add('artistName5', TextType::class, $this->generateArtistNames('artist_name5'))
             ->add('playlistName', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'playlist name',
-                ],
+                'label' => 'Playlist name',
                 'data' => 'dj-kin29-' . (new DateTime())->format('YmdHi')
             ])
             ->add('isPrivate', CheckboxType::class, [
