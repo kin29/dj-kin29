@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-use App\Form\ArtistNameListType;
+use App\Form\CreationFormType;
 use App\Service\Spotify\AuthAndApiHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ class DefaultController extends AbstractController
         if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
             return $this->render('default/auth_failure.html.twig');
         }
-        $form = $this->createForm(ArtistNameListType::class);
+        $form = $this->createForm(CreationFormType::class);
 
         return $this->render('create/index.html.twig', [
             'form' => $form->createView(),
@@ -56,25 +56,13 @@ class DefaultController extends AbstractController
      */
     public function createPost(Request $request): Response
     {
-        $form = $this->createForm(ArtistNameListType::class);
+        $form = $this->createForm(CreationFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $data = $form->getData();
-            $artistNamesData = [
-                $data['artistName1'],
-                $data['artistName2'],
-                $data['artistName3'],
-                $data['artistName4'],
-                $data['artistName5'],
-            ];
 
-            $artistNames = [];
-            foreach ($artistNamesData as $artistName) {
-                if($artistName) $artistNames[] = $artistName;
-            }
-            list($retTracks, $retArtists) = $this->authAndApiHandler->getTopTrack($artistNames);
+            list($retTracks, $retArtists) = $this->authAndApiHandler->getTopTrack($data['artistNames']);
             $playListInfo = $this->authAndApiHandler->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [
