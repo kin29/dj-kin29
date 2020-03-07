@@ -39,10 +39,10 @@ class AuthAndApiHandler
         header('Location: ' . $this->session->getAuthorizeUrl(
                 [
                     'scope' => [
-                        'playlist-read-private',
-                        'playlist-modify-private',
-                        'user-read-private',
-                        'playlist-modify'
+                        'playlist-read-private', //getPlaylistに必要
+                        'playlist-modify-private', //createPlaylist,addPlaylistTracksに必要
+                        'playlist-modify-public', //createPlaylist,addPlaylistTracksに必要
+                        'user-read-private',  //searchで必要
                     ]
                 ])
         );

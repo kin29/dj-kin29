@@ -23,11 +23,9 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * リダイレクトURL
      * @Route("/", name="index")
      * @return Response
-     *
-     * 初回時はSpotifyのauthorize画面orログイン画面となるはず
-     * 初回時以外or認証許可/拒否後は、/?code=XXX or /?error=XXXXにリダイレクトする
      */
     public function index(): Response
     {
