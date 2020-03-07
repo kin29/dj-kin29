@@ -40,7 +40,7 @@ class DefaultController extends AbstractController
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
-            'action' => $this->generateUrl('create'),
+            'action' => $this->generateUrl('create') . '?code=' . $_GET['code'],
         ]);
 
         return $this->render('create/index.html.twig', [
