@@ -34,6 +34,21 @@ class AuthAndApiHandler
         $this->router = $router;
     }
 
+    public function redirectAuth()
+    {
+        header('Location: ' . $this->session->getAuthorizeUrl(
+                [
+                    'scope' => [
+                        'playlist-read-private',
+                        'playlist-modify-private',
+                        'user-read-private',
+                        'playlist-modify'
+                    ]
+                ])
+        );
+        exit;
+    }
+
     public function handleRequest()
     {
         if (!isset($_GET['code'])) {
@@ -100,20 +115,5 @@ class AuthAndApiHandler
             'url' => $playlist->external_urls->spotify,
             'image' => $playlist->images[0]->url
         ];
-    }
-
-    public function redirectAuth()
-    {
-        header('Location: ' . $this->session->getAuthorizeUrl(
-            [
-                'scope' => [
-                    'playlist-read-private',
-                    'playlist-modify-private',
-                    'user-read-private',
-                    'playlist-modify'
-                ]
-            ])
-        );
-        exit;
     }
 }

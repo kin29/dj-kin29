@@ -43,33 +43,17 @@ class DefaultController extends AbstractController
             'action' => $this->generateUrl('create') . '?code=' . $_GET['code'],
         ]);
 
-        return $this->render('create/index.html.twig', [
+        return $this->render('default/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
-//    /**
-//     * @Route("/create", name="create_get", methods={"GET"})
-//     * @return Response
-//     */
-//    public function create()
-//    {
-//        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
-//            return $this->render('default/auth_failure.html.twig');
-//        }
-//        $form = $this->createForm(CreationFormType::class);
-//
-//        return $this->render('create/index.html.twig', [
-//            'form' => $form->createView(),
-//        ]);
-//    }
 
     /**
      * @Route("/create", name="create", methods={"POST"})
      * @param Request $request
      * @return Response
      */
-    public function createPost(Request $request): Response
+    public function create(Request $request): Response
     {
         $form = $this->createForm(CreationFormType::class);
 
