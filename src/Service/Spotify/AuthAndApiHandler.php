@@ -49,16 +49,6 @@ class AuthAndApiHandler
         exit;
     }
 
-    public function handleRequest()
-    {
-        if (!isset($_GET['code'])) {
-            $this->redirectAuth();
-        }
-
-        $this->session->requestAccessToken($_GET['code']);
-        $this->api->setAccessToken($this->session->getAccessToken());
-    }
-
     /**
      * @param array $artistNames
      * @param string $type
@@ -66,12 +56,7 @@ class AuthAndApiHandler
      */
     public function getTopTrack(array $artistNames, string $type = 'artist')
     {
-        if (!isset($_GET['code'])) {
-            $this->redirectAuth();
-        }
-
-        $this->session->requestAccessToken($_GET['code']); //これ必要だった！？
-        $this->api->setAccessToken($this->session->getAccessToken()); //これは必要だったっぽい！
+        $this->readyAccessToken();
 
         $retTracks = [];
         $retArtists = [];
@@ -99,11 +84,7 @@ class AuthAndApiHandler
      */
     public function makePlaylist(array $tracks, string $playlistName, bool $isPrivate = true)
     {
-        if (!isset($_GET['code'])) {
-            $this->redirectAuth();
-        }
-
-        $this->api->setAccessToken($this->session->getAccessToken()); //api使うにはこれが必要っぽい！
+        $this->readyAccessToken();
 
         $playlist = $this->api->createPlaylist(['name' => $playlistName, 'public' => !$isPrivate]);
         $playlistId = $playlist->id;
@@ -115,5 +96,17 @@ class AuthAndApiHandler
             'url' => $playlist->external_urls->spotify,
             'image' => $playlist->images[0]->url
         ];
+    }
+
+    private function readyAccessToken()
+    {
+        if (!isset($_GET['code'])) {
+            $this->redirectAuth();
+        }
+
+        if ($this->session->getAccessToken() === '') {
+            $this->session->requestAccessToken($_GET['code']); //これ必要だった！？
+        }
+        $this->api->setAccessToken($this->session->getAccessToken()); //これは必要だったっぽい！
     }
 }
