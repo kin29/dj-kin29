@@ -36,16 +36,24 @@ class DefaultController extends AbstractController
         }
 
         if (!isset($_GET['code'])) {
-            $this->authAndApiHandler->redirectAuth(); //redirect_uriにリダイレクトする
+            return $this->render('default/index.html.twig');
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
             'action' => $this->generateUrl('create') . '?code=' . $_GET['code'],
         ]);
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/auth_spotify", name="authSpotify", methods={"GET"})
+     */
+    public function authSpotify()
+    {
+        $this->authAndApiHandler->redirectAuth(); //redirect_uriにリダイレクトする
     }
 
     /**
