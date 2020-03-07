@@ -95,7 +95,6 @@ class AuthAndApiHandler
         $this->api->addPlaylistTracks($playlistId, $tracks);
         $playlist = $this->api->getPlaylist($playlistId);
 
-        //todo ここの分割作業を別関数にしたい。
         return  [
             'name' => $playlist->name,
             'url' => $playlist->external_urls->spotify,
@@ -103,7 +102,7 @@ class AuthAndApiHandler
         ];
     }
 
-    private function redirectAuth()
+    public function redirectAuth()
     {
         header('Location: ' . $this->session->getAuthorizeUrl(
             [
