@@ -31,7 +31,7 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        if (isset($_GET['error'])) { // 認証拒否したら、?error=access_denied とかってパラメータがついてるはず
+        if (isset($_GET['error'])) {
             return $this->render('default/auth_failure.html.twig');
         }
 
