@@ -41,3 +41,4 @@ services:
             - '@SpotifyWebAPI\SpotifyWebAPI'
             - '@SpotifyWebAPI\Session'
             - '@router'
+        public: true

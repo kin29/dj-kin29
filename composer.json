@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "jwilsson/spotify-web-api-php": "^3.1",
+        "phpunit/phpunit": "^7.5",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
