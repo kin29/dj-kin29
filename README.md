@@ -5,7 +5,7 @@ https://dj-kin29.herokuapp.com/
 
 ## What dj-kin29?
 
-Afre artist names enter, it can create automatically Spotify playlist.(You can choice private playlist/public playlist)
+Afre artist names enter, dj-kin29 create automatically Spotify playlist.(You can choice private playlist/public playlist)
 
 To use app, You must allow authorization to Spotify.
 
