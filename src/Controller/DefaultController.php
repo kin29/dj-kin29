@@ -24,21 +24,22 @@ class DefaultController extends AbstractController
 
     /**
      * リダイレクトURL
-     * @Route("/", name="index")
+     * @Route("/", name="index", methods={"GET"})
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        if (isset($_GET['error'])) {
+        if ($request->query->get('error')) {
             return $this->render('default/auth_failure.html.twig');
         }
 
-        if (!isset($_GET['code'])) {
+        $code = $request->query->get('code');
+        if ($code === null) {
             return $this->render('default/index.html.twig');
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
-            'action' => $this->generateUrl('create') . '?code=' . $_GET['code'],
+            'action' => $this->generateUrl('create') . '?code=' . $code,
         ]);
 
         return $this->render('default/form.html.twig', [
@@ -49,7 +50,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/auth_spotify", name="authSpotify", methods={"GET"})
      */
-    public function authSpotify()
+    public function authSpotify(): void
     {
         $this->authAndApiHandler->redirectAuth(); //redirect_uriにリダイレクトする
     }

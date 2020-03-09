@@ -12,27 +12,27 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-//    public function test_index()
-//    {
-//        $client = $this->createRequestClient();
-//        $client->request('GET', '/', ['code' => 'xxxx']);
-//        $response = $client->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertContains('Create playlist', $response->getContent());
-//    }
-//
-//    public function test_index_エラーの時()
-//    {
-//        $client = $this->createRequestClient();
-//        $client->request('GET', '/', ['error' => 'access_denied']);
-//        $response = $client->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertContains('Re-Try', $response->getContent());
-//    }
+    public function test_index(): void
+    {
+        $client = $this->createRequestClient();
+        $client->request('GET', '/', ['code' => 'xxxx']);
+        $response = $client->getResponse();
 
-    public function test_index_認可コードがない時()
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertContains('Create playlist', $response->getContent());
+    }
+
+    public function test_index_エラーの時(): void
+    {
+        $client = $this->createRequestClient();
+        $client->request('GET', '/', ['error' => 'access_denied']);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertContains('Re-Try', $response->getContent());
+    }
+
+    public function test_index_認可コードがない時(): void
     {
         $client = $this->createRequestClient();
         $client->request('GET', '/');
@@ -42,7 +42,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertContains('Authorization to Spotify', $response->getContent());
     }
 
-    public function test_authSpotify()
+    public function test_authSpotify(): void
     {
         $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
         $authAndApiHandler->redirectAuth()->shouldBeCalled();
@@ -51,6 +51,19 @@ class DefaultControllerTest extends WebTestCase
         $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
         $client->request('GET', '/auth_spotify');
     }
+
+//    public function test_create(): void
+//    {
+//        $form = [
+//            ''
+//        ];
+//
+//        $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
+//
+//        $client = $this->createRequestClient();
+//        $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
+//        $client->request('POST', '/create', $form);
+//    }
 
     /**
      * @return KernelBrowser
