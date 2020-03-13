@@ -15,6 +15,29 @@
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','{{ google_tag_manager_id }}');</script>
         <!-- End Google Tag Manager -->
+        <script>
+            window.twttr = (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    t = window.twttr || {};
+                if (d.getElementById(id)) return t;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+
+                t._e = [];
+                t.ready = function(f) {
+                    t._e.push(f);
+                };
+
+                return t;
+            }(document, "script", "twitter-wjs"));
+            twttr.ready(function (twttr) {
+                twttr.events.bind("click", function (){
+                    ga('send', 'social', 'twitter', 'click', location.href);
+                });
+            });
+        </script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <meta property="og:title" content="DJ-Kin29" />
         <meta property="og:type" content="website" />
