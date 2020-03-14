@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 
 
 use App\Service\Spotify\AuthAndApiHandler;
-use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -52,18 +51,35 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/auth_spotify');
     }
 
-//    public function test_create(): void
-//    {
-//        $form = [
-//            ''
-//        ];
-//
-//        $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
-//
-//        $client = $this->createRequestClient();
-//        $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
-//        $client->request('POST', '/create', $form);
-//    }
+    public function test_createPlaylist(): void
+    {
+        $client = $this->createRequestClient();
+        $client->disableReboot();
+
+        /** @var AuthAndApiHandler|ObjectProphecy $authAndApiHandler */
+        $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
+        $authAndApiHandler->getTopTrack(['artist-name1', 'artist-name2'])->willReturn([[1,2,3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
+        $authAndApiHandler->makePlaylist([1,2,3], 'playlist-name', true)->willReturn([
+            'name' => 'playlist-name',
+            'url' => 'https://localhost/url',
+            'image' => 'https://localhost/image',
+        ])->shouldBeCalled();
+
+        $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
+        $crawler = $client->request('GET', '/', ['code' => 'xxxx']);
+        $form = $crawler->filter('form')->form();
+        $formValues = $form->getValues();
+        $formValues['creation_form[artistNames][artistName1]'] = 'artist-name1';
+        $formValues['creation_form[artistNames][artistName2]'] = 'artist-name2';
+        $formValues['creation_form[playlistName]'] = 'playlist-name';
+
+        $form->setValues($formValues);
+        $client->submit($form);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertContains('More Create！', $response->getContent());
+    }
 
     /**
      * @return KernelBrowser

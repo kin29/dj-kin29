@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
 
     /**
      * リダイレクトURL
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/", name="app_index", methods={"GET"})
      * @return Response
      */
     public function index(Request $request): Response
@@ -39,7 +39,7 @@ class DefaultController extends AbstractController
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
-            'action' => $this->generateUrl('create') . '?code=' . $code,
+            'action' => $this->generateUrl('app_create_playlist') . '?code=' . $code,
         ]);
 
         return $this->render('default/form.html.twig', [
@@ -48,7 +48,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/auth_spotify", name="authSpotify", methods={"GET"})
+     * @Route("/auth_spotify", name="app_auth_spotify", methods={"GET"})
      */
     public function authSpotify(): void
     {
@@ -56,11 +56,11 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="create", methods={"POST"})
+     * @Route("/create", name="app_create_playlist", methods={"POST"})
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function createPlaylist(Request $request): Response
     {
         $form = $this->createForm(CreationFormType::class);
 
