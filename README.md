@@ -21,7 +21,7 @@ To use app, You must allow authorization to Spotify.
 
   When you did not already login Spotify, ask to login.
 
-4. After enter form, you click 'Create playlist'.(Redirect to https://dj-kin29.herokuapp.com/.)
+4. After enter form, you click 'Create playlist'.
 
 5. Playlist create complete!
 
