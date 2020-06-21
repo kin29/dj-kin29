@@ -31,6 +31,3 @@ To use app, You must allow authorization to Spotify.
 - You can share playlist to Twitter.(Others can not access private playlist.)
 - You can again more create playlist.
 
-![created_playlist](https://user-images.githubusercontent.com/12015851/85219285-6c0a9a80-b3dd-11ea-9507-05fb39358f8d.jpg)
-![spotify_opened](https://user-images.githubusercontent.com/12015851/85219290-7036b800-b3dd-11ea-9e39-94800abdc447.jpg)
-
