@@ -14,17 +14,12 @@ To use app, You must allow authorization to Spotify.
 
 2. Click 'Authorization to Spotify'.
 
-![start_authorize](https://user-images.githubusercontent.com/12015851/85219292-70cf4e80-b3dd-11ea-8367-b54ba5a5ab72.jpg)
-
-
 3. Redirect to https://accounts.spotify.com/ja/authorize.
 
 - If you allow app to access scope, you click agree button.
 - If you deny app to access scope, you click cancel button.
 
   When you did not already login Spotify, ask to login.
-
-![spotify_authorize](https://user-images.githubusercontent.com/12015851/85219288-6f058b00-b3dd-11ea-8314-90df45a65ec1.jpg)
 
 4. After enter form, you click 'Create playlist'.
 
