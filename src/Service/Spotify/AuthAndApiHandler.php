@@ -4,7 +4,6 @@
 namespace App\Service\Spotify;
 
 use SpotifyWebAPI;
-use Symfony\Component\Routing\RouterInterface;
 
 class AuthAndApiHandler
 {
@@ -18,20 +17,13 @@ class AuthAndApiHandler
      */
     private $session;
 
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
     public function __construct(
         SpotifyWebAPI\SpotifyWebAPI $api,
-        SpotifyWebAPI\Session $session,
-        RouterInterface $router
+        SpotifyWebAPI\Session $session
     )
     {
         $this->api = $api;
         $this->session = $session;
-        $this->router = $router;
     }
 
     public function redirectAuth()
