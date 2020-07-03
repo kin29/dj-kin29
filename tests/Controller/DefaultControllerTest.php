@@ -3,8 +3,9 @@
 
 namespace App\Tests\Controller;
 
-
-use App\Service\Spotify\AuthAndApiHandler;
+use App\Service\Spotify\AuthHandler;
+use App\Service\Spotify\CreatePlaylistService;
+use App\Service\Spotify\GetTopTrackService;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -43,11 +44,11 @@ class DefaultControllerTest extends WebTestCase
 
     public function test_authSpotify(): void
     {
-        $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
-        $authAndApiHandler->redirectAuth()->shouldBeCalled();
+        $authHandler = $this->prophesize(AuthHandler::class);
+        $authHandler->redirectAuth()->shouldBeCalled();
 
         $client = $this->createRequestClient();
-        $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
+        $client->getContainer()->set(AuthHandler::class, $authHandler->reveal());
         $client->request('GET', '/auth_spotify');
     }
 
@@ -56,16 +57,22 @@ class DefaultControllerTest extends WebTestCase
         $client = $this->createRequestClient();
         $client->disableReboot();
 
-        /** @var AuthAndApiHandler|ObjectProphecy $authAndApiHandler */
-        $authAndApiHandler = $this->prophesize(AuthAndApiHandler::class);
-        $authAndApiHandler->getTopTrack(['artist-name1', 'artist-name2'])->willReturn([[1,2,3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
-        $authAndApiHandler->makePlaylist([1,2,3], 'playlist-name', true)->willReturn([
+        /** @var AuthHandler|ObjectProphecy $authHandler */
+        $authHandler = $this->prophesize(AuthHandler::class);
+        /** @var GetTopTrackService|ObjectProphecy $getTopTrackService */
+        $getTopTrackService = $this->prophesize(GetTopTrackService::class);
+        $getTopTrackService->get(['artist-name1', 'artist-name2'])->willReturn([[1,2,3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
+        /** @var CreatePlaylistService|ObjectProphecy $createPlaylistService */
+        $createPlaylistService = $this->prophesize(CreatePlaylistService::class);
+        $createPlaylistService->create([1,2,3], 'playlist-name', true)->willReturn([
             'name' => 'playlist-name',
             'url' => 'https://localhost/url',
             'image' => 'https://localhost/image',
         ])->shouldBeCalled();
 
-        $client->getContainer()->set(AuthAndApiHandler::class, $authAndApiHandler->reveal());
+        $client->getContainer()->set(AuthHandler::class, $authHandler->reveal());
+        $client->getContainer()->set(GetTopTrackService::class, $getTopTrackService->reveal());
+        $client->getContainer()->set(CreatePlaylistService::class, $createPlaylistService->reveal());
         $crawler = $client->request('GET', '/', ['code' => 'xxxx']);
         $form = $crawler->filter('form')->form();
         $formValues = $form->getValues();

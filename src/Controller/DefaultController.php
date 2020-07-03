@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 use App\Form\CreationFormType;
-use App\Service\Spotify\AuthAndApiHandler;
+use App\Service\Spotify\AuthHandler;
+use App\Service\Spotify\CreatePlaylistService;
+use App\Service\Spotify\GetTopTrackService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +15,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @var AuthAndApiHandler
+     * @var AuthHandler
      */
-    private $authAndApiHandler;
+    private $authHandler;
+    /**
+     * @var GetTopTrackService
+     */
+    private $getTopTrackService;
+    /**
+     * @var CreatePlaylistService
+     */
+    private $createPlaylistService;
 
-    public function __construct(AuthAndApiHandler $authAndApiHandler)
+    public function __construct(
+        AuthHandler $authHandler,
+        GetTopTrackService $getTopTrackService,
+        CreatePlaylistService $createPlaylistService
+    )
     {
-        $this->authAndApiHandler = $authAndApiHandler;
+        $this->authHandler = $authHandler;
+        $this->getTopTrackService = $getTopTrackService;
+        $this->createPlaylistService = $createPlaylistService;
     }
 
     /**
@@ -52,7 +68,7 @@ class DefaultController extends AbstractController
      */
     public function authSpotify(): void
     {
-        $this->authAndApiHandler->redirectAuth(); //redirect_uriにリダイレクトする
+        $this->authHandler->redirectAuth(); //app_indexにリダイレクトする
     }
 
     /**
@@ -68,8 +84,9 @@ class DefaultController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            list($retTracks, $retArtists) = $this->authAndApiHandler->getTopTrack($data['artistNames']);
-            $playListInfo = $this->authAndApiHandler->makePlaylist($retTracks, $data['playlistName'], $data['isPrivate']);
+            $this->authHandler->readyAccessToken();
+            list($retTracks, $retArtists) = $this->getTopTrackService->get($data['artistNames']);
+            $playListInfo = $this->createPlaylistService->create($retTracks, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],
