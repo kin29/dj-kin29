@@ -1,5 +1,4 @@
-# dj-kin29
-
+# dj-kin29 [![Build Status](https://travis-ci.org/kin29/dj-kin29.svg?branch=master)](https://travis-ci.org/kin29/dj-kin29)
 https://dj-kin29.herokuapp.com/
 
 
