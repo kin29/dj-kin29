@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Form;
 
 use DateTime;
@@ -22,7 +21,9 @@ class CreationFormType extends AbstractType
                         return $namesAsString;
                     },
                     function ($namesAsArray) { //['key1' => 'value1', 'key2' => null] → ['value1']
-                        if ($namesAsArray === null) return null;
+                        if (null === $namesAsArray) {
+                            return null;
+                        }
 
                         return array_values(array_filter($namesAsArray));
                     }
@@ -30,7 +31,7 @@ class CreationFormType extends AbstractType
             )
             ->add('playlistName', TextType::class, [
                 'label' => 'Playlist name(*)',
-                'data' => 'dj-kin29-' . (new DateTime())->format('YmdHi')
+                'data' => 'dj-kin29-'.(new DateTime())->format('YmdHi'),
             ])
             ->add('isPrivate', CheckboxType::class, [
                 'label' => 'Private playlist',

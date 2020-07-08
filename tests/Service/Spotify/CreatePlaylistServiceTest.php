@@ -38,20 +38,20 @@ class CreatePlaylistServiceTest extends TestCase
 
     /**
      * @return mixed
-     * reference https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
+     * @ref https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      */
     private function getPlaylistResultJson()
     {
         $ret = [
             'name' => 123,
             'external_urls' => [
-                'spotify' => 'http://open.spotify.com/user/spotify/playlist/123'
+                'spotify' => 'http://open.spotify.com/user/spotify/playlist/123',
             ],
             'images' => [
                 [
-                    'url' => 'https://i.scdn.co/image/xxxx'
-                ]
-            ]
+                    'url' => 'https://i.scdn.co/image/xxxx',
+                ],
+            ],
         ];
 
         return json_decode(json_encode($ret));

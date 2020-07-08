@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Form\CreationFormType;
@@ -31,17 +30,16 @@ class DefaultController extends AbstractController
         AuthHandler $authHandler,
         GetTopTrackService $getTopTrackService,
         CreatePlaylistService $createPlaylistService
-    )
-    {
+    ) {
         $this->authHandler = $authHandler;
         $this->getTopTrackService = $getTopTrackService;
         $this->createPlaylistService = $createPlaylistService;
     }
 
     /**
-     * リダイレクトURL
+     * リダイレクトURL.
+     *
      * @Route("/", name="app_index", methods={"GET"})
-     * @return Response
      */
     public function index(Request $request): Response
     {
@@ -50,12 +48,12 @@ class DefaultController extends AbstractController
         }
 
         $code = $request->query->get('code');
-        if ($code === null) {
+        if (null === $code) {
             return $this->render('default/index.html.twig');
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
-            'action' => $this->generateUrl('app_create_playlist') . '?code=' . $code,
+            'action' => $this->generateUrl('app_create_playlist').'?code='.$code,
         ]);
 
         return $this->render('default/form.html.twig', [
@@ -73,8 +71,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/create", name="app_create_playlist", methods={"POST"})
-     * @param Request $request
-     * @return Response
      */
     public function createPlaylist(Request $request): Response
     {
@@ -91,7 +87,7 @@ class DefaultController extends AbstractController
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],
                 'url' => $playListInfo['url'],
-                'created_artists' =>implode(' / ', $retArtists),
+                'created_artists' => implode(' / ', $retArtists),
                 'image' => $playListInfo['image'],
             ]);
         }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Form;
-
 
 use App\Form\CreationFormType;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -26,12 +24,12 @@ class CreationFormTypeTest extends TypeTestCase
             'isPrivate' => true,
         ]);
         $this->assertTrue($form->isValid());
-        $this->assertEquals('雨のパレード',$form->get('artistNames')->get('artistName1')->getData());
-        $this->assertEquals('TENDRE',$form->get('artistNames')->get('artistName2')->getData());
-        $this->assertEquals('KOTORI',$form->get('artistNames')->get('artistName3')->getData());
-        $this->assertEquals('LILILIMIT',$form->get('artistNames')->get('artistName4')->getData());
-        $this->assertEquals('我儘ラキア',$form->get('artistNames')->get('artistName5')->getData());
-        $this->assertEquals('わたしのプレイリスト',$form->get('playlistName')->getData());
+        $this->assertEquals('雨のパレード', $form->get('artistNames')->get('artistName1')->getData());
+        $this->assertEquals('TENDRE', $form->get('artistNames')->get('artistName2')->getData());
+        $this->assertEquals('KOTORI', $form->get('artistNames')->get('artistName3')->getData());
+        $this->assertEquals('LILILIMIT', $form->get('artistNames')->get('artistName4')->getData());
+        $this->assertEquals('我儘ラキア', $form->get('artistNames')->get('artistName5')->getData());
+        $this->assertEquals('わたしのプレイリスト', $form->get('playlistName')->getData());
         $this->assertTrue($form->get('isPrivate')->getData());
     }
 }
