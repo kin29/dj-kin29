@@ -11,9 +11,6 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
-matrix:
-  fast_finish: true
-
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   - composer self-update
@@ -23,3 +20,14 @@ install:
 
 script:
   - ./vendor/bin/phpunit;
+
+jobs:
+  fast_finish: true
+  include:
+    - stage: Code Quality
+      name: Static analysis
+      php: 7.2
+      install:
+        - composer global require --dev phpmetrics/phpmetrics ^2.6;
+      script:
+        - ~/.composer/vendor/bin/phpmetrics --exclude=Exception src
