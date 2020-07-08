@@ -1,0 +1,25 @@
+language: php
+sudo: false
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+  - composer self-update
+
+install:
+  - composer install
+
+script:
+  - ./vendor/bin/phpunit;
