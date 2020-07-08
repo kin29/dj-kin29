@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Controller;
 
 use App\Service\Spotify\AuthHandler;
@@ -61,10 +60,10 @@ class DefaultControllerTest extends WebTestCase
         $authHandler = $this->prophesize(AuthHandler::class);
         /** @var GetTopTrackService|ObjectProphecy $getTopTrackService */
         $getTopTrackService = $this->prophesize(GetTopTrackService::class);
-        $getTopTrackService->get(['artist-name1', 'artist-name2'])->willReturn([[1,2,3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
+        $getTopTrackService->get(['artist-name1', 'artist-name2'])->willReturn([[1, 2, 3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
         /** @var CreatePlaylistService|ObjectProphecy $createPlaylistService */
         $createPlaylistService = $this->prophesize(CreatePlaylistService::class);
-        $createPlaylistService->create([1,2,3], 'playlist-name', true)->willReturn([
+        $createPlaylistService->create([1, 2, 3], 'playlist-name', true)->willReturn([
             'name' => 'playlist-name',
             'url' => 'https://localhost/url',
             'image' => 'https://localhost/image',
@@ -88,9 +87,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertContains('More Create！', $response->getContent());
     }
 
-    /**
-     * @return KernelBrowser
-     */
     public function createRequestClient(): KernelBrowser
     {
         static::ensureKernelShutdown();

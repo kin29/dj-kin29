@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service\Spotify;
-
 
 use SpotifyWebAPI\SpotifyWebAPI;
 
@@ -19,9 +17,6 @@ class CreatePlaylistService
     }
 
     /**
-     * @param array $tracks
-     * @param string $playlistName
-     * @param bool $isPrivate
      * @return array
      */
     public function create(array $tracks, string $playlistName, bool $isPrivate = true)
@@ -34,7 +29,7 @@ class CreatePlaylistService
         return  [
             'name' => $playlist->name,
             'url' => $playlist->external_urls->spotify,
-            'image' => $playlist->images[0]->url
+            'image' => $playlist->images[0]->url,
         ];
     }
 }

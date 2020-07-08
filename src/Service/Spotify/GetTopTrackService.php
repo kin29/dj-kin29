@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Service\Spotify;
 
 use SpotifyWebAPI\SpotifyWebAPI;
@@ -18,8 +17,6 @@ class GetTopTrackService
     }
 
     /**
-     * @param array $artistNames
-     * @param string $type
      * @return array
      */
     public function get(array $artistNames, string $type = 'artist')
@@ -27,9 +24,11 @@ class GetTopTrackService
         $retTracks = [];
         $retArtists = [];
         foreach ($artistNames as $artistName) {
-            $results = $this->spotifyWebAPI->search($artistName, $type, array('limit' => 1));
+            $results = $this->spotifyWebAPI->search($artistName, $type, ['limit' => 1]);
 
-            if (count($results->artists->items) == 0) continue;
+            if (0 == count($results->artists->items)) {
+                continue;
+            }
 
             $artistId = $results->artists->items[0]->id;
             $tracks = $this->spotifyWebAPI->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;

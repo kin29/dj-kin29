@@ -37,7 +37,7 @@ class GetTopTrackServiceTest extends TestCase
 
     /**
      * @return mixed
-     * reference https://developer.spotify.com/documentation/web-api/reference/search/search/
+     *               reference https://developer.spotify.com/documentation/web-api/reference/search/search/
      */
     private function getSearchResultJson()
     {
@@ -46,18 +46,18 @@ class GetTopTrackServiceTest extends TestCase
                 'items' => [
                     [
                         'id' => 1,
-                        'name' => 'dummy-artist-name'
+                        'name' => 'dummy-artist-name',
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
 
         return json_decode(json_encode($ret));
     }
 
     /**
-     * @return mixed
-     * reference https://developer.spotify.com/documentation/web-api/reference/artists/get-artists-top-tracks/
+     * @return mixe
+     * @ref https://developer.spotify.com/documentation/web-api/reference/artists/get-artists-top-tracks/
      */
     private function getArtistTopTrackResultJson()
     {
@@ -65,13 +65,13 @@ class GetTopTrackServiceTest extends TestCase
             'tracks' => [
                 [
                     'id' => 1,
-                    'name' => 'dummy-track-name1'
+                    'name' => 'dummy-track-name1',
                 ],
                 [
                     'id' => 2,
-                    'name' => 'dummy-track-name2'
+                    'name' => 'dummy-track-name2',
                 ],
-            ]
+            ],
         ];
 
         return json_decode(json_encode($ret));
