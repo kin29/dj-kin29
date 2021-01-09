@@ -56,7 +56,7 @@ class GetTopTrackServiceTest extends TestCase
     }
 
     /**
-     * @return mixe
+     * @return mixed
      * @ref https://developer.spotify.com/documentation/web-api/reference/artists/get-artists-top-tracks/
      */
     private function getArtistTopTrackResultJson()
