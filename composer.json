@@ -1,4 +1,6 @@
 {
+    "name": "kin29/dj-kin29",
+    "description": "Web Application for creating automatically Spotify playlist",
     "type": "project",
     "license": "proprietary",
     "require": {
