@@ -26,7 +26,7 @@ class CreatePlaylistService
         $this->spotifyWebAPI->addPlaylistTracks($playlistId, $tracks);
         $playlist = $this->spotifyWebAPI->getPlaylist($playlistId);
 
-        return  [
+        return [
             'name' => $playlist->name,
             'url' => $playlist->external_urls->spotify,
             'image' => $playlist->images[0]->url,

@@ -27,13 +27,13 @@ jobs:
       name: Static analysis
       php: 7.4
       install:
-        - composer global require --dev phpmetrics/phpmetrics ^2.6;
+        - composer global require --dev phpmetrics/phpmetrics ^2.6
       script:
-        - ~/.composer/vendor/bin/phpmetrics --exclude=Exception src
+        - composer global exec -v -- phpmetrics --exclude=Exception src
 
     - stage: Code Quality
       name: Code Standards
       php: 7.4
       install: composer global require --dev friendsofphp/php-cs-fixer ^2.0;
       script:
-        - ~/.composer/vendor/bin/php-cs-fixer --dry-run -v fix;
+        - composer global exec -v -- php-cs-fixer  --dry-run -v fix
