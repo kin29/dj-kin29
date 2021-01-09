@@ -1,10 +1,8 @@
 language: php
-sudo: false
 
 php:
-  - 7.1
-  - 7.2
-  - 7.3
+  - 7.4.7
+  - 7.4
 
 cache:
   directories:
@@ -12,11 +10,12 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+  - phpenv config-rm xdebug.ini || true
+  - composer validate
   - composer self-update
 
 install:
-  - composer install
+  - composer update
 
 script:
   - ./vendor/bin/phpunit;
@@ -26,15 +25,15 @@ jobs:
   include:
     - stage: Code Quality
       name: Static analysis
-      php: 7.2
+      php: 7.4
       install:
-        - composer global require --dev phpmetrics/phpmetrics ^2.6;
+        - composer global require --dev phpmetrics/phpmetrics ^2.6
       script:
-        - ~/.composer/vendor/bin/phpmetrics --exclude=Exception src
+        - composer global exec -v -- phpmetrics --exclude=Exception src
 
     - stage: Code Quality
       name: Code Standards
-      php: 7.2
+      php: 7.4
       install: composer global require --dev friendsofphp/php-cs-fixer ^2.0;
       script:
-        - ~/.composer/vendor/bin/php-cs-fixer --dry-run -v fix;
+        - composer global exec -v -- php-cs-fixer  --dry-run -v fix
