@@ -47,17 +47,18 @@ class DefaultController extends AbstractController
             return $this->render('default/auth_failure.html.twig');
         }
 
-        $code = $request->query->get('code');
-        if (null === $code) {
+        $accessToken = $request->query->get('code');
+        if (null === $accessToken) {
             return $this->render('default/index.html.twig');
         }
 
         $form = $this->createForm(CreationFormType::class, null, [
-            'action' => $this->generateUrl('app_create_playlist').'?code='.$code,
+            'action' => $this->generateUrl('app_create_playlist').'?code='.$accessToken,
         ]);
 
         return $this->render('default/form.html.twig', [
             'form' => $form->createView(),
+            'accessToken' => $accessToken,
         ]);
     }
 

@@ -14,30 +14,61 @@
             <div class="col-sm-10">
                 {{ form_widget(form.artistNames.artistName1, {
                     'attr': {
-                        class: 'form-control',
-                        'autofocus': true
-                    }
-                }) }}
+                        'class': 'form-control',
+                        'autofocus': true,
+                        'autocorrect' : 'off',
+                        'autocomplete' : 'off',
+                        'autocapitalize' : 'off',
+                    } })
+                }}
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                {{ form_widget(form.artistNames.artistName2, {'attr': {class: 'form-control'} }) }}
+                {{ form_widget(form.artistNames.artistName2, {
+                    'attr': {
+                        'class': 'form-control',
+                        'autocorrect' : 'off',
+                        'autocomplete' : 'off',
+                        'autocapitalize' : 'off',
+                    } })
+                }}
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                {{ form_widget(form.artistNames.artistName3, {'attr': {class: 'form-control'} }) }}
+                {{ form_widget(form.artistNames.artistName3, {
+                    'attr': {
+                        'class': 'form-control',
+                        'autocorrect' : 'off',
+                        'autocomplete' : 'off',
+                        'autocapitalize' : 'off',
+                    } })
+                }}
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                {{ form_widget(form.artistNames.artistName4, {'attr': {class: 'form-control'} }) }}
+                {{ form_widget(form.artistNames.artistName4, {
+                    'attr': {
+                        'class': 'form-control',
+                        'autocorrect' : 'off',
+                        'autocomplete' : 'off',
+                        'autocapitalize' : 'off',
+                    } })
+                }}
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                {{ form_widget(form.artistNames.artistName5, {'attr': {class: 'form-control'} }) }}
+                {{ form_widget(form.artistNames.artistName5, {
+                    'attr': {
+                        'class': 'form-control',
+                        'autocorrect' : 'off',
+                        'autocomplete' : 'off',
+                        'autocapitalize' : 'off',
+                    } })
+                }}
             </div>
         </div>
         <div class="form-group row">
@@ -58,5 +89,51 @@
             </div>
         </div>
         {{ form_end(form) }}
+
+        <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@9.1.1/dist/js/autoComplete.min.js"></script>
+        <script>
+            {% if accessToken is not null %}
+            for (let i of [1, 2, 3, 4, 5]) {
+                new autoComplete({
+                    selector: "#creation_form_artistNames_artistName" + i,
+                    data: {
+                        src: async () => {
+                            const query = document.activeElement.value;
+                            const source = await fetch('https://api.spotify.com/v1/search?q='+query+'&type=artist&limit=10', {
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer {{ accessToken }}'
+                                }
+                            });
+                            const data = await source.json();
+
+                            return data['artists']['items'];
+                        },
+                        key: ['name'],
+                        cache: false
+                    },
+                    resultsList: {
+                        noResults: (list, query) => {
+                            const message = document.createElement("div");
+                            message.setAttribute("class", "no_result");
+                            message.innerHTML = `<span>Found No Results for "${query}"</span>`;
+                            list.appendChild(message);
+                        },
+                    },
+                    resultItem: {
+                        highlight: {
+                            render: true
+                        }
+                    },
+                    onSelection: (feedback) => {
+                        document.querySelector("#creation_form_artistNames_artistName" + i).value = feedback.selection.value.name;
+                    },
+                    debounce: 500,
+                    searchEngine: 'loose',
+                });
+            }
+            {% endif %}
+        </script>
     </div>
 {% endblock %}
