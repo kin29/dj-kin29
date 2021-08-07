@@ -215,6 +215,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
@@ -475,6 +478,9 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.7"
+    },
+    "symfony/password-hasher": {
+        "version": "v5.3.4"
     },
     "symfony/phpunit-bridge": {
         "version": "4.3",
