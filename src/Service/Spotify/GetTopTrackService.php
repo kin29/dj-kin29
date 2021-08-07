@@ -6,20 +6,14 @@ use SpotifyWebAPI\SpotifyWebAPI;
 
 class GetTopTrackService
 {
-    /**
-     * @var SpotifyWebAPI
-     */
-    private $spotifyWebAPI;
+    private SpotifyWebAPI $spotifyWebAPI;
 
     public function __construct(SpotifyWebAPI $spotifyWebAPI)
     {
         $this->spotifyWebAPI = $spotifyWebAPI;
     }
 
-    /**
-     * @return array
-     */
-    public function get(array $artistNames, string $type = 'artist')
+    public function get(array $artistNames, string $type = 'artist'): array
     {
         $retTracks = [];
         $retArtists = [];
