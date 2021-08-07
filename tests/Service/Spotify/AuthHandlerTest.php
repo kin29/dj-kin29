@@ -4,28 +4,25 @@ namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\AuthHandler;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class AuthHandlerTest extends TestCase
 {
-    /**
-     * @var ObjectProphecy|Session
-     */
-    private $session;
-    /**
-     * @var ObjectProphecy|SpotifyWebAPI
-     */
-    private $spotifyWebApi;
+    use ProphecyTrait;
 
-    protected function setUp()
+    private ObjectProphecy|Session $session;
+    private ObjectProphecy|SpotifyWebAPI $spotifyWebApi;
+
+    protected function setUp(): void
     {
         $this->session = $this->prophesize(Session::class);
         $this->spotifyWebApi = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testReadyAccessToken()
+    public function testReadyAccessToken(): void
     {
         $_GET['code'] = 'dummy-code';
         $this->session->getAccessToken()->willReturn($accessToken = 'dummy-access-token')->shouldBeCalled();
@@ -35,7 +32,7 @@ class AuthHandlerTest extends TestCase
         $this->getSUT()->readyAccessToken();
     }
 
-    public function testReadyAccessToken_accessTokenNull()
+    public function testReadyAccessToken_accessTokenNull(): void
     {
         $_GET['code'] = 'dummy-code';
         $this->session->getAccessToken()->willReturn('')->shouldBeCalled();

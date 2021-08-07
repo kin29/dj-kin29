@@ -4,22 +4,22 @@ namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\GetTopTrackService;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class GetTopTrackServiceTest extends TestCase
 {
-    /**
-     * @var ObjectProphecy|SpotifyWebAPI
-     */
-    private $spotifyWebApi;
+    use ProphecyTrait;
 
-    protected function setUp()
+    private ObjectProphecy|SpotifyWebAPI $spotifyWebApi;
+
+    protected function setUp(): void
     {
         $this->spotifyWebApi = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $artistNames = ['dummy-artist-name'];
 
@@ -39,7 +39,7 @@ class GetTopTrackServiceTest extends TestCase
      * @return mixed
      *               reference https://developer.spotify.com/documentation/web-api/reference/search/search/
      */
-    private function getSearchResultJson()
+    private function getSearchResultJson(): mixed
     {
         $ret = [
             'artists' => [
@@ -59,7 +59,7 @@ class GetTopTrackServiceTest extends TestCase
      * @return mixed
      * @ref https://developer.spotify.com/documentation/web-api/reference/artists/get-artists-top-tracks/
      */
-    private function getArtistTopTrackResultJson()
+    private function getArtistTopTrackResultJson(): mixed
     {
         $ret = [
             'tracks' => [

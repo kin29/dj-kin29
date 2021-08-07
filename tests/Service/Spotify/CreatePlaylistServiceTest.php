@@ -4,22 +4,22 @@ namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\CreatePlaylistService;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class CreatePlaylistServiceTest extends TestCase
 {
-    /**
-     * @var ObjectProphecy|SpotifyWebAPI
-     */
-    private $spotifyWebAPI;
+    use ProphecyTrait;
 
-    protected function setUp()
+    private ObjectProphecy|SpotifyWebAPI $spotifyWebAPI;
+
+    protected function setUp(): void
     {
         $this->spotifyWebAPI = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $tracks = [];
         $playlistName = 'dummy-playlist-name';
@@ -40,7 +40,7 @@ class CreatePlaylistServiceTest extends TestCase
      * @return mixed
      * @ref https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      */
-    private function getPlaylistResultJson()
+    private function getPlaylistResultJson(): mixed
     {
         $ret = [
             'name' => 123,
