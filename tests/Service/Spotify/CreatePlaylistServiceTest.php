@@ -37,7 +37,6 @@ class CreatePlaylistServiceTest extends TestCase
     }
 
     /**
-     * @return mixed
      * @ref https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      */
     private function getPlaylistResultJson(): mixed
