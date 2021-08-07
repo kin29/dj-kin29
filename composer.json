@@ -70,7 +70,12 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        }
+        },
+        "test": [
+            "./vendor/bin/phpunit tests/"
+        ],
+        "cs": "vendor/bin/php-cs-fixer fix -v --dry-run src/",
+        "cs-fix": "vendor/bin/php-cs-fixer fix -v src/"
     },
     "conflict": {
         "symfony/symfony": "*"
