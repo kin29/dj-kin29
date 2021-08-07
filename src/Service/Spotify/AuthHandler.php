@@ -6,14 +6,8 @@ use SpotifyWebAPI;
 
 class AuthHandler
 {
-    /**
-     * @var SpotifyWebAPI\Session
-     */
-    private $session;
-    /**
-     * @var SpotifyWebAPI\SpotifyWebAPI
-     */
-    private $spotifyWebApi;
+    private SpotifyWebAPI\Session $session;
+    private SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi;
 
     public function __construct(SpotifyWebAPI\Session $session, SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi)
     {
@@ -21,7 +15,7 @@ class AuthHandler
         $this->spotifyWebApi = $spotifyWebApi;
     }
 
-    public function redirectAuth()
+    public function redirectAuth(): void
     {
         header('Location: '.$this->session->getAuthorizeUrl(
                 [
@@ -37,7 +31,7 @@ class AuthHandler
         exit;
     }
 
-    public function readyAccessToken()
+    public function readyAccessToken(): void
     {
         if (!isset($_GET['code'])) {
             $this->redirectAuth();

@@ -5,12 +5,15 @@ namespace App\Tests\Controller;
 use App\Service\Spotify\AuthHandler;
 use App\Service\Spotify\CreatePlaylistService;
 use App\Service\Spotify\GetTopTrackService;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+    use ProphecyTrait;
+
     public function test_index(): void
     {
         $client = $this->createRequestClient();
@@ -18,7 +21,7 @@ class DefaultControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('Create playlist', $response->getContent());
+        $this->assertStringContainsString('Create playlist', $response->getContent());
     }
 
     public function test_index_エラーの時(): void
@@ -28,7 +31,7 @@ class DefaultControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('Re-Try', $response->getContent());
+        $this->assertStringContainsString('Re-Try', $response->getContent());
     }
 
     public function test_index_認可コードがない時(): void
@@ -38,7 +41,7 @@ class DefaultControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('Authorization to Spotify', $response->getContent());
+        $this->assertStringContainsString('Authorization to Spotify', $response->getContent());
     }
 
     public function test_authSpotify(): void
@@ -84,7 +87,7 @@ class DefaultControllerTest extends WebTestCase
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('More Create！', $response->getContent());
+        $this->assertStringContainsString('More Create！', $response->getContent());
     }
 
     public function createRequestClient(): KernelBrowser
