@@ -6,11 +6,8 @@ use SpotifyWebAPI\SpotifyWebAPI;
 
 class CreatePlaylistService
 {
-    private SpotifyWebAPI $spotifyWebAPI;
-
-    public function __construct(SpotifyWebAPI $spotifyWebAPI)
+    public function __construct(private SpotifyWebAPI $spotifyWebAPI)
     {
-        $this->spotifyWebAPI = $spotifyWebAPI;
     }
 
     public function create(array $tracks, string $playlistName, bool $isPrivate = true): array

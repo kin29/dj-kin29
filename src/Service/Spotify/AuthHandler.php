@@ -6,13 +6,10 @@ use SpotifyWebAPI;
 
 class AuthHandler
 {
-    private SpotifyWebAPI\Session $session;
-    private SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi;
-
-    public function __construct(SpotifyWebAPI\Session $session, SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi)
-    {
-        $this->session = $session;
-        $this->spotifyWebApi = $spotifyWebApi;
+    public function __construct(
+        private SpotifyWebAPI\Session $session,
+        private SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi
+    ) {
     }
 
     public function redirectAuth(): void
