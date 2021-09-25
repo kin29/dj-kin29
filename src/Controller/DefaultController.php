@@ -13,18 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    private AuthHandler $authHandler;
-    private GetTopTrackService $getTopTrackService;
-    private CreatePlaylistService $createPlaylistService;
-
     public function __construct(
-        AuthHandler $authHandler,
-        GetTopTrackService $getTopTrackService,
-        CreatePlaylistService $createPlaylistService
+        private AuthHandler $authHandler,
+        private GetTopTrackService $getTopTrackService,
+        private CreatePlaylistService $createPlaylistService
     ) {
-        $this->authHandler = $authHandler;
-        $this->getTopTrackService = $getTopTrackService;
-        $this->createPlaylistService = $createPlaylistService;
     }
 
     /**
