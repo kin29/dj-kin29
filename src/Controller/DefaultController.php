@@ -42,7 +42,6 @@ class DefaultController extends AbstractController
 
         return $this->render('default/form.html.twig', [
             'form' => $form->createView(),
-            'accessToken' => $code,
         ]);
     }
 

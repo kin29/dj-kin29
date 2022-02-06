@@ -12,12 +12,32 @@
         <label>Artist name</label>
         <div class="mb-3 row">
             <div class="col-sm-10">
-                {{ form_widget(form.artistNames, {
+                {{ form_widget(form.artistNames.artistName1, {
                     'attr': {
-                        class: 'form-control js-data-example-ajax',
-                        'autofocus': true,
+                        class: 'form-control',
+                        'autofocus': true
                     }
                 }) }}
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                {{ form_widget(form.artistNames.artistName2, {'attr': {class: 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                {{ form_widget(form.artistNames.artistName3, {'attr': {class: 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                {{ form_widget(form.artistNames.artistName4, {'attr': {class: 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                {{ form_widget(form.artistNames.artistName5, {'attr': {class: 'form-control'} }) }}
             </div>
         </div>
         <div class="mb-3 row">
@@ -38,44 +58,5 @@
             </div>
         </div>
         {{ form_end(form) }}
-
-        <script
-                src="https://code.jquery.com/jquery-3.6.0.min.js"
-                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script>
-            $('.js-data-example-ajax').select2({
-                multiple: true,
-                maximumSelectionLength: 5,
-                ajax: {
-                    url: 'https://api.spotify.com/v1/search?type=artist&limit=10',
-                    dataType: 'json',
-                    headers: {
-                        'Authorization': 'Bearer {{ accessToken }}',
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    delay: 250,
-                    data: (params) => {
-                        return {
-                            q: params.term,
-                        }
-                    },
-                    processResults: function (data) {
-                        let results = data.artists.items.map(item => {
-                            return {
-                                id: item.name,
-                                text: item.name
-                            }
-                        });
-                        return {
-                            results: results
-                        };
-                    }
-                }
-            });
-        </script>
     </div>
 {% endblock %}
