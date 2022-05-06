@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\GetTopTrackService;
@@ -37,7 +39,7 @@ class GetTopTrackServiceTest extends TestCase
 
     /**
      * @return mixed
-     *               reference https://developer.spotify.com/documentation/web-api/reference/search/search/
+     * @see https://developer.spotify.com/documentation/web-api/reference/search/search/
      */
     private function getSearchResultJson(): mixed
     {
