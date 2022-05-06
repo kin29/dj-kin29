@@ -150,6 +150,9 @@
     "phpstan/phpdoc-parser": {
         "version": "1.5.1"
     },
+    "phpstan/phpstan": {
+        "version": "1.6.7"
+    },
     "phpunit/php-code-coverage": {
         "version": "6.1.4"
     },
