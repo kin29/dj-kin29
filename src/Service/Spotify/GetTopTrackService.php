@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service\Spotify;
 
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class GetTopTrackService
 {
-    public function __construct(private SpotifyWebAPI $spotifyWebAPI)
+    public function __construct(private readonly SpotifyWebAPI $spotifyWebAPI)
     {
     }
 
@@ -17,7 +19,7 @@ class GetTopTrackService
         foreach ($artistNames as $artistName) {
             $results = $this->spotifyWebAPI->search($artistName, $type, ['limit' => 1]);
 
-            if (0 == count($results->artists->items)) {
+            if (0 === count($results->artists->items)) {
                 continue;
             }
 

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service\Spotify;
 
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class CreatePlaylistService
 {
-    public function __construct(private SpotifyWebAPI $spotifyWebAPI)
+    public function __construct(private readonly SpotifyWebAPI $spotifyWebAPI)
     {
     }
 
