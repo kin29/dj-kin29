@@ -50,7 +50,7 @@ class DefaultController extends AbstractController
      */
     public function authSpotify(): void
     {
-        $this->authHandler->redirectAuth(); //app_indexにリダイレクトする
+        $this->authHandler->redirectAuth(); // app_indexにリダイレクトする
     }
 
     /**

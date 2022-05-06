@@ -20,7 +20,7 @@ class CreationFormType extends AbstractType
                     function ($namesAsString) {
                         return $namesAsString;
                     },
-                    function ($namesAsArray) { //['key1' => 'value1', 'key2' => null] → ['value1']
+                    function ($namesAsArray) { // ['key1' => 'value1', 'key2' => null] → ['value1']
                         if (null === $namesAsArray) {
                             return null;
                         }
