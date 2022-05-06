@@ -8,7 +8,7 @@ use SpotifyWebAPI\SpotifyWebAPI;
 
 class CreatePlaylistService
 {
-    public function __construct(private SpotifyWebAPI $spotifyWebAPI)
+    public function __construct(private readonly SpotifyWebAPI $spotifyWebAPI)
     {
     }
 

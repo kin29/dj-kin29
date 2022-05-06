@@ -9,8 +9,8 @@ use SpotifyWebAPI;
 class AuthHandler
 {
     public function __construct(
-        private SpotifyWebAPI\Session $session,
-        private SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi
+        private readonly SpotifyWebAPI\Session $session,
+        private readonly SpotifyWebAPI\SpotifyWebAPI $spotifyWebApi
     ) {
     }
 
