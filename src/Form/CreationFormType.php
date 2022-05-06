@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class CreationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add($builder->create('artistNames', ArtistNamesType::class)

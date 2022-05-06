@@ -12,12 +12,26 @@ class CreatePlaylistService
     {
     }
 
-    public function create(array $tracks, string $playlistName, bool $isPrivate = true): array
+    /**
+     * @param array<string>  $trackIds
+     * @param string $playlistName
+     * @param bool   $isPrivate
+     * @return array{name: string, url:string, image:string}
+     */
+    public function create(array $trackIds, string $playlistName, bool $isPrivate = true): array
     {
-        $playlist = $this->spotifyWebAPI->createPlaylist(['name' => $playlistName, 'public' => !$isPrivate]);
-        $playlistId = $playlist->id;
-        $this->spotifyWebAPI->addPlaylistTracks($playlistId, $tracks);
-        $playlist = $this->spotifyWebAPI->getPlaylist($playlistId);
+        /** @var object{id: string} $createdPlaylist */
+        $createdPlaylist = $this->spotifyWebAPI->createPlaylist(['name' => $playlistName, 'public' => !$isPrivate]);
+        $createdPlaylistId = $createdPlaylist->id;
+        $this->spotifyWebAPI->addPlaylistTracks($createdPlaylistId, $trackIds);
+        /**
+         * @var object{
+         *     name: string,
+         *     external_urls: array{spotify: string},
+         *     images: array{url: string}
+         *  } $playlist
+         */
+        $playlist = $this->spotifyWebAPI->getPlaylist($createdPlaylistId);
 
         return [
             'name' => $playlist->name,

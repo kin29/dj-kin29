@@ -60,13 +60,13 @@ class DefaultController extends AbstractController
             $data = $form->getData();
 
             $this->authHandler->readyAccessToken();
-            list($retTracks, $retArtists) = $this->getTopTrackService->get($data['artistNames']);
-            $playListInfo = $this->createPlaylistService->create($retTracks, $data['playlistName'], $data['isPrivate']);
+            list($retTrackIds, $retArtistNames) = $this->getTopTrackService->get($data['artistNames']);
+            $playListInfo = $this->createPlaylistService->create($retTrackIds, $data['playlistName'], $data['isPrivate']);
 
             return $this->render('create/complete.html.twig', [
                 'name' => $playListInfo['name'],
                 'url' => $playListInfo['url'],
-                'created_artists' => implode(' / ', $retArtists),
+                'created_artists' => implode(' / ', $retArtistNames),
                 'image' => $playListInfo['image'],
             ]);
         }
