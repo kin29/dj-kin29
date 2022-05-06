@@ -14,17 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     public function __construct(
-        private AuthHandler $authHandler,
-        private GetTopTrackService $getTopTrackService,
-        private CreatePlaylistService $createPlaylistService
+        private readonly AuthHandler $authHandler,
+        private readonly GetTopTrackService $getTopTrackService,
+        private readonly CreatePlaylistService $createPlaylistService
     ) {
     }
 
-    /**
-     * リダイレクトURL.
-     *
-     * @Route("/", name="app_index", methods={"GET"})
-     */
+    // リダイレクトURL.
+    #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
         if ($request->query->get('error')) {
@@ -45,17 +42,13 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/auth_spotify", name="app_auth_spotify", methods={"GET"})
-     */
+    #[Route('/auth_spotify', name: 'app_auth_spotify', methods: ['GET'])]
     public function authSpotify(): void
     {
         $this->authHandler->redirectAuth(); // app_indexにリダイレクトする
     }
 
-    /**
-     * @Route("/create", name="app_create_playlist", methods={"POST"})
-     */
+    #[Route('/create', name: 'app_create_playlist', methods: ['POST'])]
     public function createPlaylist(Request $request): Response
     {
         $form = $this->createForm(CreationFormType::class);
