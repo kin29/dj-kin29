@@ -13,9 +13,8 @@ class CreatePlaylistService
     }
 
     /**
-     * @param array<string>  $trackIds
-     * @param string $playlistName
-     * @param bool   $isPrivate
+     * @param array<string> $trackIds
+     *
      * @return array{name: string, url:string, image:string}
      */
     public function create(array $trackIds, string $playlistName, bool $isPrivate = true): array

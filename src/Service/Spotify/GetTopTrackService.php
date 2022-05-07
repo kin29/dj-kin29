@@ -13,8 +13,8 @@ class GetTopTrackService
     }
 
     /**
-     * @param array<string>  $artistNames
-     * @param string $type
+     * @param array<string> $artistNames
+     *
      * @return array{array<string>, array<string>}
      */
     public function get(array $artistNames, string $type = 'artist'): array
