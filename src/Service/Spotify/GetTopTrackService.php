@@ -12,25 +12,37 @@ class GetTopTrackService
     {
     }
 
+    /**
+     * @param array<string> $artistNames
+     *
+     * @return array{array<string>, array<string>}
+     */
     public function get(array $artistNames, string $type = 'artist'): array
     {
-        $retTracks = [];
-        $retArtists = [];
+        $retTrackIds = [];
+        $retArtistNames = [];
         foreach ($artistNames as $artistName) {
+            /**
+             * @var object{
+             *      artists: object{
+             *          items: array<object{id: string}>
+             *     }
+             * } $results
+             */
             $results = $this->spotifyWebAPI->search($artistName, $type, ['limit' => 1]);
-
             if (0 === count($results->artists->items)) {
                 continue;
             }
-
             $artistId = $results->artists->items[0]->id;
-            $tracks = $this->spotifyWebAPI->getArtistTopTracks($artistId, ['country' => 'JP'])->tracks;
-            foreach ($tracks as $track) {
-                $retTracks[] = $track->id;
+            $retArtistNames[] = $artistName;
+
+            /** @var object{tracks: array<object{id: string}>} $topTracks */
+            $topTracks = $this->spotifyWebAPI->getArtistTopTracks($artistId, ['country' => 'JP']);
+            foreach ($topTracks->tracks as $topTrack) {
+                $retTrackIds[] = $topTrack->id;
             }
-            $retArtists[] = $artistName;
         }
 
-        return [$retTracks, $retArtists];
+        return [$retTrackIds, $retArtistNames];
     }
 }

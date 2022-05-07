@@ -49,6 +49,7 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpmetrics/phpmetrics": "^2.6",
         "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.6",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",
         "symfony/debug-bundle": "5.4.*",
@@ -90,7 +91,8 @@
             "./vendor/bin/phpunit tests/"
         ],
         "cs": "vendor/bin/php-cs-fixer fix -v --dry-run src/",
-        "cs-fix": "vendor/bin/php-cs-fixer fix -v src/"
+        "cs-fix": "vendor/bin/php-cs-fixer fix -v src/",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "conflict": {
         "symfony/symfony": "*"

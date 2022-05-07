@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Form;
 
 use App\Form\CreationFormType;
@@ -7,7 +9,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class CreationFormTypeTest extends TypeTestCase
 {
-    public function test()
+    public function test(): void
     {
         $form = $this->factory->create(CreationFormType::class);
         $this->assertStringContainsString('dj-kin29-', $form->get('playlistName')->getData());

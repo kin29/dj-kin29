@@ -37,3 +37,6 @@ jobs:
       
     - name: Run cs
       run: composer cs
+
+    - name: Run PHPStan
+      run: composer phpstan
