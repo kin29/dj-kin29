@@ -93,7 +93,8 @@
         ],
         "cs": "vendor/bin/php-cs-fixer fix -v --dry-run src/",
         "cs-fix": "vendor/bin/php-cs-fixer fix -v src/",
-        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
+        "psalm": "./vendor/bin/psalm --show-info=true"
     },
     "conflict": {
         "symfony/symfony": "*"
