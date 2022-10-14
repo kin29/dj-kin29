@@ -28,15 +28,18 @@ jobs:
 
     - name: Install composer
       run: composer install --prefer-dist --no-progress
-    
+
     - name: Install yarn
       run: yarn install --frozen-lockfile --network-timeout 100000 --network-concurrency 1 && yarn encore production
 
     - name: Run test suite
       run: composer test
-      
+
     - name: Run cs
       run: composer cs
 
     - name: Run PHPStan
       run: composer phpstan
+
+    - name: Run Psalm
+      run: composer psalm
