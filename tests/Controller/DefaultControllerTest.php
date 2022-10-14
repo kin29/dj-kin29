@@ -6,6 +6,7 @@ namespace App\Tests\Controller;
 
 use App\Service\Spotify\AuthHandler;
 use App\Service\Spotify\CreatePlaylistService;
+use App\Service\Spotify\DTO\CreatedPlaylist;
 use App\Service\Spotify\GetTopTrackService;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -68,11 +69,13 @@ class DefaultControllerTest extends WebTestCase
         $getTopTrackService->get(['artist-name1', 'artist-name2'])->willReturn([[1, 2, 3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
         /** @var CreatePlaylistService|ObjectProphecy $createPlaylistService */
         $createPlaylistService = $this->prophesize(CreatePlaylistService::class);
-        $createPlaylistService->create([1, 2, 3], 'playlist-name', true)->willReturn([
-            'name' => 'playlist-name',
-            'url' => 'https://localhost/url',
-            'image' => 'https://localhost/image',
-        ])->shouldBeCalled();
+        $createPlaylistService->create([1, 2, 3], 'playlist-name', true)->willReturn(
+            new CreatedPlaylist(
+                $playlistName= 'playlist-name',
+                'https://localhost/url',
+                'https://localhost/image',
+            ),
+        )->shouldBeCalled();
 
         $client->getContainer()->set(AuthHandler::class, $authHandler->reveal());
         $client->getContainer()->set(GetTopTrackService::class, $getTopTrackService->reveal());
@@ -82,7 +85,7 @@ class DefaultControllerTest extends WebTestCase
         $formValues = $form->getValues();
         $formValues['creation_form[artistNames][artistName1]'] = 'artist-name1';
         $formValues['creation_form[artistNames][artistName2]'] = 'artist-name2';
-        $formValues['creation_form[playlistName]'] = 'playlist-name';
+        $formValues['creation_form[playlistName]'] = $playlistName;
 
         $form->setValues($formValues);
         $client->submit($form);

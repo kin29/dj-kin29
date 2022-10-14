@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\CreatePlaylistService;
+use App\Service\Spotify\DTO\CreatedPlaylist;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -21,7 +22,7 @@ class CreatePlaylistServiceTest extends TestCase
         $this->spotifyWebAPI = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testCreate(): void
+    public function test_create(): void
     {
         $tracks = [];
         $playlistName = 'dummy-playlist-name';
@@ -32,21 +33,26 @@ class CreatePlaylistServiceTest extends TestCase
             ->shouldBeCalled();
 
         $this->spotifyWebAPI->addPlaylistTracks($playlistId, $tracks)->shouldBeCalled();
-        $this->spotifyWebAPI->getPlaylist($playlistId)->willReturn($this->getPlaylistResultJson())->shouldBeCalled();
+        $this->spotifyWebAPI->getPlaylist($playlistId)
+            ->willReturn($this->getPlaylistResultJson($playlistName))
+            ->shouldBeCalled();
 
         $SUT = new CreatePlaylistService($this->spotifyWebAPI->reveal());
-        $SUT->create($tracks, $playlistName);
+        $actual = $SUT->create($tracks, $playlistName);
+        $this->assertSame($playlistName, $actual->name);
+        $this->assertSame('https://open.spotify.com/user/spotify/playlist/123', $actual->url);
+        $this->assertSame('https://i.scdn.co/image/xxxx', $actual->imageUrl);
     }
 
     /**
      * @ref https://developer.spotify.com/documentation/web-api/reference/playlists/get-playlist/
      */
-    private function getPlaylistResultJson(): mixed
+    private function getPlaylistResultJson(string $playlistName): mixed
     {
         $ret = [
-            'name' => 123,
+            'name' => $playlistName,
             'external_urls' => [
-                'spotify' => 'http://open.spotify.com/user/spotify/playlist/123',
+                'spotify' => 'https://open.spotify.com/user/spotify/playlist/123',
             ],
             'images' => [
                 [
