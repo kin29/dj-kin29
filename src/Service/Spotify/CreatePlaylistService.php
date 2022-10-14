@@ -26,8 +26,8 @@ class CreatePlaylistService
         /**
          * @var object{
          *     name: string,
-         *     external_urls: array{spotify: string},
-         *     images: array{url: string}
+         *     external_urls: object{spotify: string},
+         *     images: array<object{url: string}>
          *  } $playlist
          */
         $playlist = $this->spotifyWebAPI->getPlaylist($createdPlaylistId);
