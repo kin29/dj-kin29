@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\CreatePlaylistService;
-use App\Service\Spotify\DTO\CreatedPlaylist;
 use App\Service\Spotify\DTO\Track;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
