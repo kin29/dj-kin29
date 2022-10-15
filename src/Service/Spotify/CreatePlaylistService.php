@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Spotify;
 
 use App\Service\Spotify\DTO\CreatedPlaylist;
+use App\Service\Spotify\DTO\Track;
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class CreatePlaylistService
@@ -14,14 +15,18 @@ class CreatePlaylistService
     }
 
     /**
-     * @param array<string> $trackIds
+     * @param array<Track> $trackList
      */
-    public function create(array $trackIds, string $playlistName, bool $isPrivate = true): CreatedPlaylist
+    public function create(array $trackList, string $playlistName, bool $isPrivate = true): CreatedPlaylist
     {
         /** @var object{id: string} $createdPlaylist */
         $createdPlaylist = $this->spotifyWebAPI->createPlaylist(['name' => $playlistName, 'public' => !$isPrivate]);
         $createdPlaylistId = $createdPlaylist->id;
-        $this->spotifyWebAPI->addPlaylistTracks($createdPlaylistId, $trackIds);
+        $trackIdList = [];
+        foreach ($trackList as $track) {
+            $trackIdList = $track->id;
+        }
+        $this->spotifyWebAPI->addPlaylistTracks($createdPlaylistId, $trackIdList);
         /**
          * @var object{
          *     name: string,

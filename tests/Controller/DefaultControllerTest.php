@@ -6,7 +6,9 @@ namespace App\Tests\Controller;
 
 use App\Service\Spotify\AuthHandler;
 use App\Service\Spotify\CreatePlaylistService;
+use App\Service\Spotify\DTO\Artist;
 use App\Service\Spotify\DTO\CreatedPlaylist;
+use App\Service\Spotify\DTO\Track;
 use App\Service\Spotify\GetTopTrackService;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -66,10 +68,15 @@ class DefaultControllerTest extends WebTestCase
         $authHandler = $this->prophesize(AuthHandler::class);
         /** @var GetTopTrackService|ObjectProphecy $getTopTrackService */
         $getTopTrackService = $this->prophesize(GetTopTrackService::class);
-        $getTopTrackService->get(['artist-name1', 'artist-name2'])->willReturn([[1, 2, 3], ['artist-name1', 'artist-name2']])->shouldBeCalled();
+        $getTopTrackService->get(['artist-name1', 'artist-name2'])
+            ->willReturn([
+                $trackList = [new Track('dummy-track-id', 'dummy-track-name')],
+                [new Artist('dummy-artist-id-1', 'artist-name1'), new Artist('dummy-artist-id-2', 'artist-name2')],
+            ])
+            ->shouldBeCalled();
         /** @var CreatePlaylistService|ObjectProphecy $createPlaylistService */
         $createPlaylistService = $this->prophesize(CreatePlaylistService::class);
-        $createPlaylistService->create([1, 2, 3], 'playlist-name', true)->willReturn(
+        $createPlaylistService->create($trackList, 'playlist-name', true)->willReturn(
             new CreatedPlaylist(
                 $playlistName= 'playlist-name',
                 'https://localhost/url',

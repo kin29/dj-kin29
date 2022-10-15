@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Spotify;
 
+use App\Service\Spotify\DTO\Artist;
+use App\Service\Spotify\DTO\Track;
 use SpotifyWebAPI\SpotifyWebAPI;
 
 class GetTopTrackService
@@ -15,12 +17,12 @@ class GetTopTrackService
     /**
      * @param array<string> $artistNames
      *
-     * @return array{array<string>, array<string>}
+     * @return array{array<Track>, array<Artist>}
      */
     public function get(array $artistNames, string $type = 'artist'): array
     {
-        $retTrackIds = [];
-        $retArtistNames = [];
+        $retTrackList = [];
+        $retArtistList = [];
         foreach ($artistNames as $artistName) {
             /**
              * @var object{
@@ -34,15 +36,21 @@ class GetTopTrackService
                 continue;
             }
             $artistId = $results->artists->items[0]->id;
-            $retArtistNames[] = $artistName;
+            $retArtistList[] = new Artist(
+                $results->artists->items[0]->id,
+                $artistName
+            );
 
             /** @var object{tracks: array<object{id: string}>} $topTracks */
             $topTracks = $this->spotifyWebAPI->getArtistTopTracks($artistId, ['country' => 'JP']);
             foreach ($topTracks->tracks as $topTrack) {
-                $retTrackIds[] = $topTrack->id;
+                $retTrackList[] = new Track(
+                    $topTrack->id,
+                    $topTrack->name,
+                );
             }
         }
 
-        return [$retTrackIds, $retArtistNames];
+        return [$retTrackList, $retArtistList];
     }
 }

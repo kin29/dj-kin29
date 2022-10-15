@@ -21,7 +21,7 @@ class GetTopTrackServiceTest extends TestCase
         $this->spotifyWebApi = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testGet(): void
+    public function test_get(): void
     {
         $artistNames = ['dummy-artist-name'];
 
@@ -47,7 +47,7 @@ class GetTopTrackServiceTest extends TestCase
             'artists' => [
                 'items' => [
                     [
-                        'id' => 1,
+                        'id' => '1',
                         'name' => 'dummy-artist-name',
                     ],
                 ],
@@ -65,11 +65,11 @@ class GetTopTrackServiceTest extends TestCase
         $ret = [
             'tracks' => [
                 [
-                    'id' => 1,
+                    'id' => '1',
                     'name' => 'dummy-track-name1',
                 ],
                 [
-                    'id' => 2,
+                    'id' => '2',
                     'name' => 'dummy-track-name2',
                 ],
             ],
