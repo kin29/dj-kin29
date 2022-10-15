@@ -24,7 +24,7 @@ class CreatePlaylistService
         $createdPlaylistId = $createdPlaylist->id;
         $trackIdList = [];
         foreach ($trackList as $track) {
-            $trackIdList = $track->id;
+            $trackIdList[] = $track->id;
         }
         $this->spotifyWebAPI->addPlaylistTracks($createdPlaylistId, $trackIdList);
         /**

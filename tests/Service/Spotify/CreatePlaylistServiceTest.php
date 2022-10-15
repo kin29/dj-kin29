@@ -6,6 +6,7 @@ namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\CreatePlaylistService;
 use App\Service\Spotify\DTO\CreatedPlaylist;
+use App\Service\Spotify\DTO\Track;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -24,7 +25,10 @@ class CreatePlaylistServiceTest extends TestCase
 
     public function test_create(): void
     {
-        $tracks = [];
+        $trackList = [
+            new Track($trackId1 = 'dummy-track-id-1', $trackName1 = 'dummy-track-name-1'),
+            new Track($trackId2 = 'dummy-track-id-2', $trackName2 = 'dummy-track-name-2'),
+        ];
         $playlistName = 'dummy-playlist-name';
 
         $playlistId = 123;
@@ -32,13 +36,15 @@ class CreatePlaylistServiceTest extends TestCase
             ->willReturn(json_decode(json_encode(['id' => $playlistId])))
             ->shouldBeCalled();
 
-        $this->spotifyWebAPI->addPlaylistTracks($playlistId, $tracks)->shouldBeCalled();
+        $this->spotifyWebAPI
+            ->addPlaylistTracks($playlistId, [$trackId1, $trackId2])
+            ->shouldBeCalled();
         $this->spotifyWebAPI->getPlaylist($playlistId)
             ->willReturn($this->getPlaylistResultJson($playlistName))
             ->shouldBeCalled();
 
         $SUT = new CreatePlaylistService($this->spotifyWebAPI->reveal());
-        $actual = $SUT->create($tracks, $playlistName);
+        $actual = $SUT->create($trackList, $playlistName);
         $this->assertSame($playlistName, $actual->name);
         $this->assertSame('https://open.spotify.com/user/spotify/playlist/123', $actual->url);
         $this->assertSame('https://i.scdn.co/image/xxxx', $actual->imageUrl);
