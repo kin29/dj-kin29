@@ -41,7 +41,7 @@ class GetTopTrackService
                 $artistName
             );
 
-            /** @var object{tracks: array<object{id: string}>} $topTracks */
+            /** @var object{tracks: array<object{id: string, name: string}>} $topTracks */
             $topTracks = $this->spotifyWebAPI->getArtistTopTracks($artistId, ['country' => 'JP']);
             foreach ($topTracks->tracks as $topTrack) {
                 $retTrackList[] = new Track(
