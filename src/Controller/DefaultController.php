@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $this->authHandler->readyAccessToken();
+            $this->authHandler->readyAccessToken((string) $request->query->get('code'));
             [$retTrackList, $retArtistList] = $this->getTopTrackService->get($data['artistNames']);
             $createdPlaylist = $this->createPlaylistService->create($retTrackList, $data['playlistName'], $data['isPrivate']);
 

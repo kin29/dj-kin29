@@ -30,14 +30,16 @@ class AuthHandler
         exit;
     }
 
-    public function readyAccessToken(): void
+    public function readyAccessToken(string $code): void
     {
-        if (!isset($_GET['code'])) {
+        if ('' === $code) {
             $this->redirectAuth();
+
+            return;
         }
 
         if ('' === $this->session->getAccessToken()) {
-            $this->session->requestAccessToken($_GET['code']);
+            $this->session->requestAccessToken($code);
         }
         $this->spotifyWebApi->setAccessToken($this->session->getAccessToken());
     }

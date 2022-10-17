@@ -6,6 +6,7 @@ namespace App\Tests\Service\Spotify;
 
 use App\Service\Spotify\AuthHandler;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use SpotifyWebAPI\Session;
@@ -15,38 +16,49 @@ class AuthHandlerTest extends TestCase
 {
     use ProphecyTrait;
 
-    private ObjectProphecy|Session $session;
-    private ObjectProphecy|SpotifyWebAPI $spotifyWebApi;
+    private ObjectProphecy|Session|null $sessionP;
+    private ObjectProphecy|SpotifyWebAPI|null $spotifyWebApiP;
 
     protected function setUp(): void
     {
-        $this->session = $this->prophesize(Session::class);
-        $this->spotifyWebApi = $this->prophesize(SpotifyWebAPI::class);
+        $this->sessionP = $this->prophesize(Session::class);
+        $this->spotifyWebApiP = $this->prophesize(SpotifyWebAPI::class);
     }
 
-    public function testReadyAccessToken(): void
+    protected function tearDown(): void
     {
-        $_GET['code'] = 'dummy-code';
-        $this->session->getAccessToken()->willReturn($accessToken = 'dummy-access-token')->shouldBeCalled();
-        $this->session->requestAccessToken($_GET['code'])->shouldNotBeCalled();
-        $this->spotifyWebApi->setAccessToken($accessToken)->shouldBeCalled();
-
-        $this->getSUT()->readyAccessToken();
+        $this->sessionP = null;
+        $this->spotifyWebApiP = null;
     }
 
-    public function testReadyAccessToken_accessTokenNull(): void
+    public function test_readyAccessToken(): void
     {
-        $_GET['code'] = 'dummy-code';
-        $this->session->getAccessToken()->willReturn('')->shouldBeCalled();
-        $this->session->requestAccessToken($_GET['code']);
-        $this->session->getAccessToken()->willReturn($accessToken = 'dummy-access-token')->shouldBeCalled();
-        $this->spotifyWebApi->setAccessToken($accessToken)->shouldBeCalled();
+        $code = 'dummy-code';
+        $this->sessionP->getAccessToken()
+            ->willReturn($accessToken = 'dummy-access-token')
+            ->shouldBeCalled();
+        $this->sessionP->requestAccessToken($code)->shouldNotBeCalled();
+        $this->spotifyWebApiP->setAccessToken($accessToken)->shouldBeCalled();
 
-        $this->getSUT()->readyAccessToken();
+        $this->getSUT()->readyAccessToken($code);
+    }
+
+    public function test_readyAccessToken_accessTokenが空文字の時はrequestAccessTokenをする(): void
+    {
+        $code = 'dummy-code';
+        $this->sessionP
+            ->getAccessToken()
+            ->willReturn('')
+            ->shouldBeCalled();
+        $this->sessionP->requestAccessToken($code)->shouldBeCalled();
+        //$this->sessionP->getAccessToken()->willReturn($accessToken = 'dummy-access-token')->shouldBeCalled();
+        $this->spotifyWebApiP->setAccessToken(Argument::any())->shouldBeCalled();
+
+        $this->getSUT()->readyAccessToken($code);
     }
 
     public function getSUT(): AuthHandler
     {
-        return new AuthHandler($this->session->reveal(), $this->spotifyWebApi->reveal());
+        return new AuthHandler($this->sessionP->reveal(), $this->spotifyWebApiP->reveal());
     }
 }
